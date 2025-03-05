@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://doyqkkyny78xh"]
+
+[ext_resource type="PackedScene" uid="uid://dj4qpqru2q8f2" path="res://scenes/interactable/interactable.tscn" id="1_c250g"]
+[ext_resource type="Script" path="res://scripts/interactable/trash.gd" id="2_ex25p"]
+[ext_resource type="Texture2D" uid="uid://bycc28qndp4cq" path="res://assets/misc/trash_sheet.png" id="3_caife"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3irv"]
+resource_local_to_scene = true
+atlas = ExtResource("3_caife")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3et6"]
+resource_local_to_scene = true
+atlas = ExtResource("3_caife")
+region = Rect2(0, 0, 64, 64)
+
+[node name="trash" instance=ExtResource("1_c250g")]
+script = ExtResource("2_ex25p")
+
+[node name="Sprite3D" parent="." index="1"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0398642, -0.282046, -0.00451995)
+texture = SubResource("AtlasTexture_u3irv")
+
+[node name="Sprite3D2" type="Sprite3D" parent="." index="2"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.123094, -0.282046, -0.168642)
+texture_filter = 0
+texture = SubResource("AtlasTexture_d3et6")

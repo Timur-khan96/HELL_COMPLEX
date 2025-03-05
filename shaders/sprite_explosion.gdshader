@@ -1,4 +1,4 @@
-// Sprite Particle Explosion Shader made in Godot 4.2.1 
+// Sprite Particle Explosion Shader made in Godot 4.2.1
 // port of PlayWithFurcifers shader https://www.youtube.com/watch?v=D7XSL0zBOwI
 // Ported by Mopifish
 
@@ -133,12 +133,12 @@ void start() {
 	if (rand_from_seed(alt_seed) > AMOUNT_RATIO) {
 		ACTIVE = false;
 	}
-	
+
 	if (RESTART_CUSTOM){
 		CUSTOM = vec4(0.);
 		CUSTOM.w = params.lifetime;
 	}
-	
+
 	if (RESTART_ROT_SCALE) {
 		TRANSFORM[0].xyz = vec3(1.0, 0.0, 0.0);
 		TRANSFORM[1].xyz = vec3(0.0, 1.0, 0.0);
@@ -152,12 +152,12 @@ void start() {
 	if (RESTART_VELOCITY) {
 		VELOCITY = get_random_direction_from_spread(alt_seed, spread) * dynamic_params.initial_velocity_multiplier;
 		}
-		
+
 	VELOCITY = (EMISSION_TRANSFORM * vec4(VELOCITY, 0.0)).xyz;
 	VELOCITY += EMITTER_VELOCITY * inherit_emitter_velocity_ratio;
 		VELOCITY.z = 0.;
 		TRANSFORM[3].z = 0.;
-	
+
 	// Set particle to match sprite pixel color
 	vec2 particlePosition = TRANSFORM[3].xy;
 	vec2 texture5 = vec2(textureSize(sprite, 0));
@@ -213,33 +213,31 @@ void process() {
 				VELOCITY = normalize(VELOCITY) * v;
 			}
 		}
-		
+
 	}
-	
+
 	vec3 final_velocity = VELOCITY;
-	
+
 	// limit velocity
 		final_velocity.z = 0.;
 	TRANSFORM[3].xyz += final_velocity * DELTA;
-	
+
 	TRANSFORM[0] = vec4(cos(CUSTOM.x), -sin(CUSTOM.x), 0.0, 0.0);
 	TRANSFORM[1] = vec4(sin(CUSTOM.x), cos(CUSTOM.x), 0.0, 0.0);
 	TRANSFORM[2] = vec4(0.0, 0.0, 1.0, 0.0);
 	TRANSFORM[3].z = 0.0;
-	
+
 	// Apply Scale
 	TRANSFORM[0].xyz *= sign(params.scale.x) * max(abs(params.scale.x), 0.001);
 	TRANSFORM[1].xyz *= sign(params.scale.y) * max(abs(params.scale.y), 0.001);
 	TRANSFORM[2].xyz *= sign(params.scale.z) * max(abs(params.scale.z), 0.001);
-	
+
 	if (CUSTOM.y > CUSTOM.w) {
 		ACTIVE = false;
 	}
-	
+
 	// Fade out pixels as time progresses
 	if (COLOR.a > 0.0){
 		COLOR.a -= 1.0/LIFETIME*DELTA;
 	}
 }
-
-

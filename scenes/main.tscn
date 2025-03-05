@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcb8mwbftiwqa"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_t6icl"]
+[ext_resource type="Script" path="res://custom_resources/character_stats.gd" id="2_054lf"]
+[ext_resource type="PackedScene" uid="uid://b6h2rcw2tfwbn" path="res://scenes/town_square_scene.tscn" id="3_kw7km"]
+
+[sub_resource type="Resource" id="Resource_nvf6x"]
+script = ExtResource("2_054lf")
+strength = 10
+dexterity = 1
+intelligence = 1
+endurance = 1
+charisma = 1
+luck = 1
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_t6icl")
+player_stats = SubResource("Resource_nvf6x")
+first_scene = ExtResource("3_kw7km")

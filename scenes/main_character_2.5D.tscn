@@ -1,0 +1,155 @@
+[gd_scene load_steps=16 format=3 uid="uid://drxmkq524r88q"]
+
+[ext_resource type="PackedScene" uid="uid://5148ijqrpg2w" path="res://scenes/sprite_skeleton.tscn" id="1_jl8h8"]
+[ext_resource type="Script" path="res://scripts/player/main_character_2.5d.gd" id="1_pggbv"]
+[ext_resource type="Script" path="res://scripts/player/animation_tree.gd" id="3_sbkn4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jkang"]
+size = Vector3(0.50882, 0.928009, 0.558746)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oomyh"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_cnqdv"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_aq4x1"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3jles"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_oogn0"]
+filter_enabled = true
+filters = ["Skeleton2D/hips/chest/left_arm/left_hand:rotation", "Skeleton2D/hips/chest/left_arm:rotation", "Skeleton2D/hips/chest/right_arm/right_hand:rotation", "Skeleton2D/hips/chest/right_arm:rotation"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_7swlv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_avcqc"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_37cxt"]
+animation = &"fight_begin"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhmcl"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b62id"]
+animation = &"move"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_t0fpp"]
+graph_offset = Vector2(-372.073, 121.274)
+nodes/add_fight/node = SubResource("AnimationNodeAdd2_cnqdv")
+nodes/add_fight/position = Vector2(-120, 300)
+nodes/add_move/node = SubResource("AnimationNodeAdd2_aq4x1")
+nodes/add_move/position = Vector2(-340, 240)
+nodes/attack/node = SubResource("AnimationNodeAnimation_3jles")
+nodes/attack/position = Vector2(280, 620)
+nodes/attack_anim/node = SubResource("AnimationNodeOneShot_oogn0")
+nodes/attack_anim/position = Vector2(440, 380)
+nodes/blend_die/node = SubResource("AnimationNodeBlend2_7swlv")
+nodes/blend_die/position = Vector2(100, 400)
+nodes/die/node = SubResource("AnimationNodeAnimation_avcqc")
+nodes/die/position = Vector2(-120, 640)
+nodes/fight/node = SubResource("AnimationNodeAnimation_37cxt")
+nodes/fight/position = Vector2(-440, 700)
+nodes/idle/node = SubResource("AnimationNodeAnimation_fhmcl")
+nodes/idle/position = Vector2(-620, 240)
+nodes/move/node = SubResource("AnimationNodeAnimation_b62id")
+nodes/move/position = Vector2(-660, 500)
+nodes/output/position = Vector2(700, 380)
+node_connections = [&"add_fight", 0, &"add_move", &"add_fight", 1, &"fight", &"add_move", 0, &"idle", &"add_move", 1, &"move", &"attack_anim", 0, &"blend_die", &"attack_anim", 1, &"attack", &"blend_die", 0, &"add_fight", &"blend_die", 1, &"die", &"output", 0, &"attack_anim"]
+
+[node name="main_character_2_5D" type="CharacterBody3D"]
+script = ExtResource("1_pggbv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00932312, 0.105209, -0.00889587)
+shape = SubResource("BoxShape3D_jkang")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.024, 0, 0)
+billboard = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_oomyh")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+disable_3d = true
+transparent_bg = true
+
+[node name="sprite_skeleton" parent="Sprite3D/SubViewport" instance=ExtResource("1_jl8h8")]
+unique_name_in_owner = true
+position = Vector2(256, 192)
+
+[node name="right_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="0"]
+position = Vector2(15, 37.9001)
+rotation = 0.629489
+
+[node name="right_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="1"]
+position = Vector2(34, 76.9001)
+rotation = 2.12782
+
+[node name="torso" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="2"]
+position = Vector2(-1, 78.9001)
+
+[node name="head" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="4"]
+position = Vector2(-3, 16.9001)
+
+[node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="9"]
+position = Vector2(-39, 78.9001)
+rotation = -2.19261
+scale = Vector2(0.999985, 0.999985)
+
+[node name="left_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="10"]
+position = Vector2(-26, 38.9001)
+rotation = -0.684137
+
+[node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/Skeleton2D/hips/chest/left_arm" index="0"]
+scale = Vector2(0.999985, 0.999985)
+
+[node name="health_bar" type="ProgressBar" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(224, 32)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_right = 96.0
+offset_bottom = 32.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+step = 1.0
+show_percentage = false
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("%sprite_skeleton")
+tree_root = SubResource("AnimationNodeBlendTree_t0fpp")
+anim_player = NodePath("../Sprite3D/SubViewport/sprite_skeleton/AnimationPlayer")
+parameters/add_fight/add_amount = 0.0
+parameters/add_move/add_amount = 0.0
+parameters/attack_anim/active = false
+parameters/attack_anim/internal_active = false
+parameters/attack_anim/request = 0
+parameters/blend_die/blend_amount = 0.0
+script = ExtResource("3_sbkn4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 16
+
+[node name="action_info" type="Label" parent="MarginContainer"]
+layout_mode = 2
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]
+
+[editable path="Sprite3D/SubViewport/sprite_skeleton"]

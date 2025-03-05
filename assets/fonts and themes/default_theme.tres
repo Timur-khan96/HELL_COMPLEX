@@ -1,12 +1,33 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d14ktq5v0xitd"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d14ktq5v0xitd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xy6r"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65ii6"]
-bg_color = Color(1.29953e-06, 0.728155, 0.0537613, 1)
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [resource]
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 4
+Label/constants/outline_size = 2
 Label/font_sizes/font_size = 60
-ProgressBar/styles/background = null
+ProgressBar/styles/background = SubResource("StyleBoxFlat_3xy6r")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_65ii6")

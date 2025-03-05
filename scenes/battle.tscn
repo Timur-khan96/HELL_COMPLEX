@@ -1,27 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://hst13wbu6ns4"]
+[gd_scene load_steps=10 format=3 uid="uid://hst13wbu6ns4"]
 
-[ext_resource type="Script" path="res://scripts/battle_grid.gd" id="1_8fs7n"]
-[ext_resource type="Script" path="res://scripts/battle_main.gd" id="1_rrhp7"]
-[ext_resource type="Script" path="res://custom_resources/character_stats.gd" id="2_gfm0v"]
+[ext_resource type="Script" path="res://scripts/battle/battle_grid.gd" id="1_8fs7n"]
+[ext_resource type="Script" path="res://scripts/battle/battle_main.gd" id="1_rrhp7"]
 [ext_resource type="Texture2D" uid="uid://db1twajnljopq" path="res://assets/misc/circle.png" id="5_psrqm"]
-
-[sub_resource type="Resource" id="Resource_ybn7x"]
-script = ExtResource("2_gfm0v")
-strength = 10
-dexterity = 10
-intelligence = 10
-endurance = 10
-charisma = 10
-luck = 10
-
-[sub_resource type="Resource" id="Resource_53sat"]
-script = ExtResource("2_gfm0v")
-strength = 10
-dexterity = 10
-intelligence = 10
-endurance = 10
-charisma = 10
-luck = 10
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_phlcm"]
 load_path = "res://.godot/imported/battle_icons.png-e8430be4cf69ad59e5872378eb894d19.ctex"
@@ -48,13 +29,12 @@ region = Rect2(640, 0, 128, 128)
 
 [node name="battle_main" type="Node2D"]
 script = ExtResource("1_rrhp7")
-player_stats = SubResource("Resource_ybn7x")
-enemy_stats = SubResource("Resource_53sat")
 
 [node name="battle_grid" type="Node2D" parent="."]
 script = ExtResource("1_8fs7n")
 
 [node name="below_grid_UI" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -233,46 +213,20 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="hp_bars_container" type="MarginContainer" parent="."]
-offset_right = 1312.0
-offset_bottom = 149.0
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 64
-theme_override_constants/margin_top = 64
-theme_override_constants/margin_right = 64
-theme_override_constants/margin_bottom = 64
-
-[node name="HBoxContainer" type="HBoxContainer" parent="hp_bars_container"]
-layout_mode = 2
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="player_health" type="ProgressBar" parent="hp_bars_container/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-step = 1.0
-
-[node name="fake_grid" type="CenterContainer" parent="hp_bars_container/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="battle_result" type="Label" parent="hp_bars_container/HBoxContainer/fake_grid"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-
-[node name="enemy_health" type="ProgressBar" parent="hp_bars_container/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 50)
-layout_mode = 2
-size_flags_horizontal = 3
-step = 1.0
-
 [node name="begin_timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 autostart = true
 
+[node name="player_position" type="Node2D" parent="."]
+position = Vector2(128, 512)
+
+[node name="enemy_position" type="Node2D" parent="."]
+position = Vector2(1792, 512)
+
+[node name="end_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [connection signal="timeout" from="begin_timer" to="." method="_on_begin_timer_timeout"]
+[connection signal="timeout" from="end_timer" to="." method="_on_end_timer_timeout"]

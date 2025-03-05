@@ -1,0 +1,154 @@
+[gd_scene load_steps=22 format=3 uid="uid://b6h2rcw2tfwbn"]
+
+[ext_resource type="Script" path="res://scripts/town_square_scene.gd" id="1_5cvau"]
+[ext_resource type="PackedScene" uid="uid://bg616n3rv686i" path="res://models/house_1.glb" id="2_tm857"]
+[ext_resource type="PackedScene" uid="uid://1bfw4latgsu3" path="res://models/house_2.glb" id="3_kfofi"]
+[ext_resource type="PackedScene" uid="uid://drxmkq524r88q" path="res://scenes/main_character_2.5D.tscn" id="4_b6tvq"]
+[ext_resource type="PackedScene" uid="uid://dpi1qxbd5x77i" path="res://scenes/town_guard.tscn" id="5_djvxf"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="6_t7138"]
+[ext_resource type="PackedScene" uid="uid://cxurbctky70iq" path="res://scenes/equipable.tscn" id="7_jho86"]
+[ext_resource type="Texture2D" uid="uid://bww1mg642mg7f" path="res://assets/other_characters/leaning_woman.png" id="7_uxepv"]
+[ext_resource type="Texture2D" uid="uid://b6w5mxsmgs7wh" path="res://assets/objects/saw.png" id="8_jiglf"]
+[ext_resource type="Resource" uid="uid://oi288nludisc" path="res://custom_resources/broom.tres" id="8_x2gbk"]
+[ext_resource type="Script" path="res://custom_resources/item.gd" id="9_0qnxl"]
+
+[sub_resource type="Curve3D" id="Curve3D_xyvdr"]
+bake_interval = 3.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 3.13679, 0, -0.354356, 0, 0, 0, 0, 0, 0, -4.94245, 0, -1.91528, 0, 0, 0, 0, 0, 0, -11.2204, 0, -7.44933),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_o73ca"]
+bake_interval = 3.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7.64809, 0, -2.27405, 0.12, 0, 0, 0, 0, 0, 0.394095, 0, 2.29127, 0, 0, 0, 0, 0, 0, -9.92024, -9.53674e-07, 3.93223),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_iuy6h"]
+bake_interval = 3.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 19.8871, 0, -9.81394, 0, 0, 0, 0, 0, 0, 13.2158, 0, -8.45761, 0, 0, 0, 0, 0, 0, 2.38651, 0, 0.0599689, 0, 0, 0, 0, 0, 0, -0.0502701, 0, -0.194027),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dddg8"]
+diffuse_mode = 3
+specular_mode = 1
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85uf1"]
+material = SubResource("StandardMaterial3D_dddg8")
+size = Vector2(30, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sftny"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u36b2"]
+size = Vector3(3.05627, 3.55908, 5.01978)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_plpno"]
+size = Vector3(3.01229, 3.79199, 7.05617)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bkwch"]
+size = Vector3(2.01904, 3.15051, 3.00244)
+
+[sub_resource type="Resource" id="Resource_btjvg"]
+script = ExtResource("9_0qnxl")
+obj_name = "saw"
+texture = ExtResource("8_jiglf")
+sprite_transform = {
+"position": Vector2(-78.6, 18.7),
+"rotation": 57.2,
+"scale": Vector2(2, 2)
+}
+
+[node name="town_square_scene" type="Node3D"]
+script = ExtResource("1_5cvau")
+
+[node name="Paths" type="Node3D" parent="."]
+
+[node name="Path3D" type="Path3D" parent="Paths"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.35855, 0.124247, 0)
+curve = SubResource("Curve3D_xyvdr")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Paths/Path3D"]
+transform = Transform3D(0.189693, 0, 0.981835, 0, 1, 0, -0.981835, 0, 0.189693, 3.13679, 0, -0.354356)
+loop = false
+
+[node name="Path3D2" type="Path3D" parent="Paths"]
+curve = SubResource("Curve3D_o73ca")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Paths/Path3D2"]
+transform = Transform3D(-0.532641, 0, 0.846333, 0, 1, 0, -0.846333, 0, -0.532641, 7.64809, 0, -2.27405)
+loop = false
+
+[node name="Path3D3" type="Path3D" parent="Paths"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.79165, 0.124247, -1.62374)
+curve = SubResource("Curve3D_iuy6h")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Paths/Path3D3"]
+transform = Transform3D(-0.199227, 0, 0.979943, 0, 1, 0, -0.979943, 0, -0.199227, 19.8871, 0, -9.81394)
+loop = false
+
+[node name="player" parent="." instance=ExtResource("4_b6tvq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.678, 0.5, 2.589)
+
+[node name="floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.94964)
+mesh = SubResource("PlaneMesh_85uf1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_sftny")
+
+[node name="house_1" parent="." instance=ExtResource("2_tm857")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.02359, 0, -2.53263)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="house_1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="house_1/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.53058, 1.27954, -2.46497)
+shape = SubResource("BoxShape3D_u36b2")
+
+[node name="house_2" parent="." instance=ExtResource("3_kfofi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.32381, 0, -2.11778)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="house_2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="house_2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.50568, 1.396, -3.46323)
+shape = SubResource("BoxShape3D_plpno")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="house_2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00632, 1.07526, -5.49706)
+shape = SubResource("BoxShape3D_bkwch")
+
+[node name="guard" parent="." instance=ExtResource("5_djvxf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, -2.89278, 1.5, 3.83203)
+script = ExtResource("6_t7138")
+target = NodePath("../player")
+
+[node name="woman" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.698, 0.6, -2.68974)
+billboard = 1
+texture_filter = 2
+texture = ExtResource("7_uxepv")
+
+[node name="broom" parent="." instance=ExtResource("7_jho86")]
+transform = Transform3D(0.998714, 0, -0.0506975, 0, 1, 0, 0.0506975, 0, 0.998714, -4.82595, 0.57243, -5.54053)
+resource = ExtResource("8_x2gbk")
+
+[node name="saw" parent="." instance=ExtResource("7_jho86")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.94186, 0.521343, -5.57461)
+resource = SubResource("Resource_btjvg")
+
+[editable path="house_1"]
+[editable path="house_2"]
