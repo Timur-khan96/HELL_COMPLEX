@@ -1,5 +1,6 @@
+class_name Interactable
 extends Area3D
-#this is a template of interactble script, extend it
+
 var obj_name: String = "NONAME"
 
 func interact(_player_scene):

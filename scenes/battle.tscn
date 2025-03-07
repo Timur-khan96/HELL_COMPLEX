@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://hst13wbu6ns4"]
 
-[ext_resource type="Script" path="res://scripts/battle/battle_grid.gd" id="1_8fs7n"]
-[ext_resource type="Script" path="res://scripts/battle/battle_main.gd" id="1_rrhp7"]
+[ext_resource type="Script" uid="uid://6yexjie7xqbu" path="res://scripts/battle/battle_grid.gd" id="1_8fs7n"]
+[ext_resource type="Script" uid="uid://cqbpriirwl3c5" path="res://scripts/battle/battle_main.gd" id="1_rrhp7"]
 [ext_resource type="Texture2D" uid="uid://db1twajnljopq" path="res://assets/misc/circle.png" id="5_psrqm"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_phlcm"]

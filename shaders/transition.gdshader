@@ -7,11 +7,11 @@ uniform bool use_new_scene = false;
 
 void fragment() {
     vec2 uv = SCREEN_UV;
-    
+
     // Smooth pixelation steps (avoiding immediate loss of detail)
     float step_size = 1.0 / max(pixel_size, 1.0);
     uv = floor(uv / step_size) * step_size;
-    
+
     // Use the correct texture
     if (use_new_scene) {
         COLOR = texture(new_scene_texture, uv);

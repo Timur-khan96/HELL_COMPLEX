@@ -1,0 +1,23 @@
+key,en,ru
+STRENGTH,strength,сила
+DEXTERITY,dexterity,ловкость
+ENDURANCE,endurance,выносливость
+INTELLIGENCE,intelligence,интеллект
+LUCK,luck,удача
+PERCEPTION,perception,восприятие
+SPEED,speed,скорость
+CHARISMA,charisma,харизма
+DAMAGE,damage,урон
+HEALTH,health,здоровье
+ARMOR,armor,броня
+CRIT_CHANCE,critical chance,шанс крита
+CRIT_DAMAGE,critical damage,урон крита
+ATTACK_SPEED,attack speed,скорость атаки
+MANA,mana,мана
+GUARD,guard,страж
+BROOM,broom,метла
+SAW,saw,пила
+TRASH,trash,мусор
+START,start,старт
+CONTINUE,continue,продолжить
+EXIT,exit,выйти

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://dj4qpqru2q8f2"]
 
-[ext_resource type="Script" path="res://scripts/interactable/interactable_object.gd" id="1_u53n4"]
+[ext_resource type="Script" uid="uid://dtoiftw67sm3j" path="res://scripts/interactable/interactable_object.gd" id="1_u53n4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ehc1"]
-size = Vector3(0.711441, 1, 0.660569)
+size = Vector3(0.711441, 0.856873, 0.660569)
 
 [node name="interactable" type="Area3D"]
 script = ExtResource("1_u53n4")

@@ -1,33 +1,63 @@
 extends Node3D
 
-var transition_scene = load("res://scenes/transition_scene.tscn")
+#var transition_scene = load("res://scenes/transition_scene.tscn")
 var battle_scene = load("res://scenes/battle.tscn")
+var text_scene = load("res://scenes/text_scene.tscn")
 
-@export var player_stats: CharacterStats #we will move that to the autoload
-@export var first_scene: PackedScene
+@onready var menu = $main_menu
+var current_scene = null #battle and menu do not change this
 
-var current_scene = null
-
-func _ready():
+func _on_start_button_pressed():
+	if get_tree().paused:
+		get_tree().paused = false
+		menu.hide()
+	else:
+		menu.hide()
+		%start_button.text = tr("CONTINUE") #change in translation
+		start_game()
+		
+func _on_exit_button_pressed(): get_tree().quit()
+	
+func start_game():
+	GameManager.player_stats = CharacterStats.new()
 	GameManager.battle_started.connect(_on_battle_started)
-	GameManager.player_stats = player_stats
-	GameManager.player_health = player_stats.get_default_health()
-	var s = first_scene.instantiate()
-	add_child(s)
-	current_scene = s
-
+	GameManager.debug_label = %debug_label
+	_on_text_scene_finished("intro")
+	#var s = text_scene.instantiate()
+	#add_child(s)
+	#s.init_scene_from_file("intro")
+	#current_scene = s
+	#s.scene_finished.connect(_on_text_scene_finished)
+	#s.skill_changed.connect(GameManager._on_skill_changed)
+	
+func set_ambush_dic():
+	return {
+		"scenes": {"0": {"text": {"ru": "Вы попали в засаду!", "en": "You were ambushed!"}}}
+	}
+	
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
-		get_tree().quit()
+		get_tree().paused = true
+		menu.move_to_front()
+		menu.show()
+		
+func _on_text_scene_finished(scene_name):
+	if current_scene != null: current_scene.queue_free()
+	if scene_name == "intro":
+		GameManager.game_state = GameManager.GameStates.ADVENTURE
+		var s = load("res://scenes/town_square_scene.tscn").instantiate()
+		add_child(s)
+		current_scene = s
 		
 func _on_battle_started(player_scene, enemy_scene):
 	var battle = battle_scene.instantiate()
 	battle.player_scene = player_scene
 	battle.enemy_scene = enemy_scene
 	
-	battle.player_stats = player_stats
+	battle.player_stats = GameManager.player_stats
 	battle.battle_finished.connect(GameManager._on_battle_finished)
-	get_tree().root.add_child(battle)
+	battle.battle_finished.connect(player_scene._on_battle_finished)
+	add_child(battle)
 	var cam = current_scene.get_node("Camera3D")
 	var player_2d = battle.get_node("player_position").global_position
 	var enemy_2d = battle.get_node("enemy_position").global_position
@@ -81,3 +111,10 @@ func _battle_position_reached(battler):
 		#current_scene = b
 		#current_scene.process_mode = PROCESS_MODE_DISABLED
 		#next_scene = temp
+func _on_eng_button_pressed(): 
+	TranslationServer.set_locale("en")
+	if current_scene is TextScene: current_scene.update_locale()
+
+func _on_rus_button_pressed(): 
+	TranslationServer.set_locale("ru")
+	if current_scene is TextScene: current_scene.update_locale()

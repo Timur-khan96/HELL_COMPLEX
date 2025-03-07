@@ -1,4 +1,4 @@
-extends "res://scripts/interactable/interactable_object.gd"
+extends DelayedInteractable
 
 @onready var sprite_1 = $Sprite3D
 @onready var sprite_2 = $Sprite3D2
@@ -18,5 +18,16 @@ func _ready():
 	sprite_2.global_position.z = collision_shape.global_position.z 
 	sprite_2.global_position.z += randf_range(-extents.z, extents.z)
 
-func interact(_player_scene):
-	queue_free()
+func interact(player_scene):
+	if player_scene.equipped_item == null: return
+	if player_scene.equipped_item.obj_name == "broom":
+		is_interacting = true
+		player_scene.play_anim("sweep")
+		while !player_scene.anim_tree["parameters/sweep_anim/active"]: 
+			await get_tree().process_frame 
+		while player_scene.anim_tree["parameters/sweep_anim/active"]:
+			await get_tree().process_frame
+			if !is_interacting:
+				player_scene.stop_anim("sweep")
+				return
+		super.complete_interaction()

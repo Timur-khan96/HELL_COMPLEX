@@ -13,6 +13,9 @@ func play_anim(anim_name):
 			set("parameters/blend_die/blend_amount", 1)
 		"fight_begin":
 			set("parameters/add_fight/add_amount", 1)
+		"sweep":
+			set("parameters/sweep_anim/request",
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 			
 func stop_anim(anim_name):
 	match anim_name:
@@ -20,4 +23,7 @@ func stop_anim(anim_name):
 			set("parameters/add_move/add_amount", 0)
 		"fight_begin":
 			set("parameters/add_fight/add_amount", 0)
+		"sweep":
+			set("parameters/sweep_anim/request",
+			AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
 	

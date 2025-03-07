@@ -1,4 +1,35 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d14ktq5v0xitd"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://d14ktq5v0xitd"]
+
+[ext_resource type="Texture2D" uid="uid://c65avksj3w051" path="res://assets/misc/panel.png" id="1_iy43g"]
+
+[sub_resource type="FontVariation" id="FontVariation_iy43g"]
+spacing_glyph = 3
+spacing_top = 12
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iy43g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jrt10"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iy43g"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqide"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrt10"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jrt10"]
+texture = ExtResource("1_iy43g")
+texture_margin_left = 24.0
+texture_margin_top = 24.0
+texture_margin_right = 24.0
+texture_margin_bottom = 24.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xy6r"]
 bg_color = Color(0, 0, 0, 1)
@@ -25,9 +56,21 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
 [resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 4
+Button/font_sizes/font_size = 56
+Button/fonts/font = SubResource("FontVariation_iy43g")
+Button/styles/disabled = SubResource("StyleBoxEmpty_iy43g")
+Button/styles/focus = SubResource("StyleBoxEmpty_jrt10")
+Button/styles/hover = SubResource("StyleBoxFlat_iy43g")
+Button/styles/normal = SubResource("StyleBoxFlat_hqide")
+Button/styles/pressed = SubResource("StyleBoxFlat_jrt10")
+CheckBox/font_sizes/font_size = 32
 Label/colors/font_color = Color(0, 0, 0, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 2
 Label/font_sizes/font_size = 60
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_jrt10")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_3xy6r")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_65ii6")

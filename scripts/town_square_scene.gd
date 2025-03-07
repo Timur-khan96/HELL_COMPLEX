@@ -8,6 +8,8 @@ var passer_by_speed = 2.0
 
 var active_passers = []
 
+func get_player_scene(): return $player
+
 func _ready():
 	passer_by_timer = randf_range(1, 3)
 
@@ -41,8 +43,8 @@ func _process(delta):
 		
 func spawn_trash(pos):
 	var t = trash.instantiate()
-	add_child(t)
-	t.global_position = pos
+	$Trash.add_child(t)
+	t.global_position = Vector3(pos.x, t.global_position.y, pos.z)
 		
 func spawn_passer():
 	var path = get_free_path() #pathfollow node
@@ -54,7 +56,7 @@ func spawn_passer():
 		path.progress_ratio = randi() % 2
 		var dic = {"path": path, 
 		"inversed": path.progress_ratio == 1,
-		"littering": randi() % 4 == 0}
+		"littering": randi() % 2 == 0}
 		passer.flip_h = dic.inversed
 		if dic.littering: dic["litter_moment"] = randf_range(0.1, 0.9)
 		active_passers.append(dic)

@@ -1,0 +1,300 @@
+{
+	"conditions": {"is_family_guy": false},
+	"scenes": {
+		"0": {
+			"text": {
+				"ru": "Позволь мне возложить к твоим августейшим ногам повесть об ужасах, что еще совсем недавно разрывали семьи и связи. Ты погрузишься вглубь истории, отголоски которой слышны до сих пор, и тебе представиться возможность переломить ее ход.",
+				"en": "Let me lay at your august feet the narrative of horrors that tore apart families and ties so recently. You will be immersed in a history, the echoes of which are still heard today, and you will have the opportunity to change its course."
+			},
+		},
+		"1": {
+			"image": "intro",
+			"text": {
+				"ru": "Начнем с начала, с давно забытой страны, существенная часть которой уходила вглубь континента на расстояние, которое до сих пор не исследовал ни один путешественник. Эта страна была разделена на множество провинций, и ты родился и провел свою юность в одной из таких, расположенной в очаровательной плодотворной долине.",
+				"en": "Let us begin at the beginning, with a long-forgotten country, a considerable part of which extended into the interior of the continent to a distance unexplored by any traveler. This country was divided into many provinces, and you were born and spent your youth in one of these, situated in a charming and fruitful valley."
+			},
+		},
+		"2": {
+			"text": {"ru": "Рос же ты ребенком...", "en": "You grew up as..."},
+			"choices": [
+				{
+					"text": { "ru": "милым.", "en": "sweet."},
+					"effects": {"change_skill": {"charisma": 1}}
+				},
+				{
+					"text": { "ru": "восприимчивым.", "en": "receptive."},
+					"effects": {"change_skill": {"perception": 1}}
+				},
+				{
+					"text": { "ru": "удачливым.", "en": "lucky."},
+					"effects": {"change_skill": {"luck": 1}}
+				},
+				{
+					"text": { "ru": "расторопным.", "en": "spry."},
+					"effects": {"change_skill": {"speed": 1}}
+				}
+			]
+		},
+		"3": {
+			"text": { "ru": "Каждый день после завтрака ты...", "en": "Every day after breakfast you would..."},
+			"choices": [
+				{
+					"text": { "ru": "помогали семье и близким.", "en": "help family and loved ones."},
+					"effects": {"change_condition": {"is_family_guy": true}}
+				},
+				{
+					"text": { "ru": "убегали из дома к друзьям", "en": "ran out to hang out with friends"},
+					"effects": {"jump": "5"}
+				}
+			]
+		},
+		"4": {
+			"text": { "ru": "День проведенный за усердной работой это день проведенный не зря. Кому же и с чем ты помогал?", "en": "A day spent working hard is a day well spent. Who and with what did you help?"},
+			"choices": [
+				{
+					"text": { "ru": "Матери по дому.", "en": "My mother around the house"},
+					"effects": 
+						{
+							"show": {
+								"ru": "В основном ты оставался дома и помогал матери по хозяйству, и хотя до тебя доносились звуки веселья и смеха снаружи, они быстро забывались за работой, сулящей множество красок и ароматов. Грозди плантанов, клубни кассавы  и ямса, початки маиса. Нередко приходилось разделывать мясо волов, коз, птиц. Словно выдержанный орех кола, твое тело и дух становились лишь крепче.",
+								"en": "Mostly you stayed at home and helped your mother with the housework, and although you heard the sounds of joy and laughter outside, they were quickly forgotten in the work that promised many colors and aromas. Bunches of plantains, tubers of cassava and yams, ears of corn. Often you had to cut up the meat of oxen, goats, birds. Like an aged kola nut, your body and spirit only grew stronger."
+							},
+							"change_skill": {"endurance": 1},
+							"jump": "6"
+						}
+				},
+				{
+					"text": { "ru": "Отцу в кузнице.", "en": "My father in the forge"},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты с детства привык чувствовать вес молота в руке. В кузне твоего отца, среди грохота ударов по раскалённому железу, ты закалял не только металл, но и своё тело. Равномерные удары, крепкая стойка, пробирающий словно до костей жар — всё это закалило твои руки и спину не хуже, чем огонь закаляет металл. Ты научился поднимать тяжёлое, держаться уверенно и не давать усталости взять верх.",
+								"en": "Since childhood, you have been accustomed to the feeling of the weight of a hammer in your hand. In your father's forge, amid the roar of blows on red-hot iron, you tempered not only the metal, but also your body. Even blows, a strong stance, a heat that seemed to penetrate to the bones - all this tempered your arms and back no worse than fire tempers metal. You learned to lift heavy things, to hold on confidently and not let fatigue take over."
+							},
+							"change_skill": {"strength": 1},
+							"jump": "6"
+						}
+				},
+				{
+					"text": { "ru": "Бабке собирать травы.", "en": "My granny collecting herbs."},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты научился видеть в листьях и корнях больше, чем другие. Под пристальным взглядом бабки ты искал нужные травы в лесу, различая их по запаху, цвету, форме. Ты знал, какие листья спасают от жара, какие успокаивают, а какие несут смерть. Тебе открылась мудрость старых сказаний, в которых травы говорили с людьми, а духи скрывались за их горьким привкусом. Ты учился, и с каждым днём твой разум становился острее.",
+								"en": "You learned to see more in leaves and roots than others. Under the watchful eye of your grandmother, you searched for the right herbs in the forest, distinguishing them by smell, color, shape. You knew which leaves save you from heat, which calm you down, and which bring death. You discovered the wisdom of old tales, in which herbs spoke to people, and spirits hid behind their bitter taste. You learned, and with each passing day your mind became sharper."
+							},
+							"change_skill": {"intelligence": 1},
+							"jump": "6"
+						}
+				},
+				{
+					"text": { "ru": "Брату-охотнику.", "en": "My brother who was a hunter"},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты шёл за братом по узким тропам, учась замечать то, что другим не бросается в глаза. Звериные следы в мягкой земле, сломанные ветки, чуть уловимый запах крови — каждая деталь могла означать разницу между добычей и пустыми руками. Ты понял, что охота — это не просто удача, а точный расчёт: выбрать момент, подкрасться, метко поразить цель, чтобы мясо и шкура не пропали зря. Теперь твой взгляд цепляется за важные мелочи, а слух улавливает то, что раньше сливалось с фоном.",
+								"en": "You followed your brother along the narrow paths, learning to notice things that others might not notice. Animal tracks in the soft earth, broken branches, the faint scent of blood—every detail could mean the difference between a kill and empty hands. You realized that hunting isn’t just luck, it’s a matter of precise calculation: choosing the moment, sneaking up, hitting the target accurately so that the meat and skin aren’t wasted. Now your eyes catch the important details, and your ears pick up on things that used to blend into the background."
+							},
+							"change_skill": {"perception": 1},
+							"jump": "6"
+						}
+				}
+			]
+		},
+		"5": {
+			"text": { 
+				"ru": "Ты так и не научился любви к работе, и каждый раз когда кто-то смел надеяться на твое содействие, ты пропускал мимо ушей и бежал к окраинам деревни, к друзьям. Однако, это время не было потрачено впустую, ведь ты...", 
+				"en": "You never learned to love your work, and every time someone dared to hope for your assistance, you ignored them and ran to the outskirts of the village, to your friends. However, this time was not wasted, because you..."
+			},
+			"choices": [
+				{
+					"text": { "ru": "приобрел лидерские качества.", "en": "acquired leadership qualities."},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты всегда знал, как завести разговор и заставить людей тебя слушать. Во время игр ты первым придумывал правила, решал, кто с кем в команде, и когда заканчивался спор, именно твой голос ставил точку. Друзья тянулись к тебе, а взрослые иногда удивлялись, как тебе удаётся уговорить их закрыть глаза на очередную проделку.",
+								"en": "You always knew how to start a conversation and make people listen to you. During games, you were the first to come up with the rules, decide who was on whom's team, and when an argument ended, it was your voice that put an end to it. Friends were drawn to you, and adults were sometimes surprised how you managed to persuade them to turn a blind eye to yet another shenanigan."
+							},
+							"change_skill": {"charisma": 1},
+						}
+				},
+				{
+					"text": { "ru": "лучше всех прятался.", "en": "was the best at hiding."},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты знал каждое дерево и каждый укромный уголок в деревне. Пока другие тяжело взбирались по корням, ты уже был наверху, смеясь с высоты. Ты учился цепляться, пригибаться, проскальзывать в самые узкие щели, а когда игра превращалась в погоню, исчезал так, что тебя не могли найти даже самые внимательные.",
+								"en": "You knew every tree and every nook in the village. While others were struggling to climb up the roots, you were already at the top, laughing from above. You learned to cling, to bend, to slip into the narrowest cracks, and when the game turned into a chase, you disappeared so that even the most attentive could not find you."
+							},
+							"change_skill": {"dexterity": 1},
+						}
+				},
+				{
+					"text": { "ru": "лучше всех играл в догонялки.", "en": "was the best at tags."},
+					"effects": 
+						{
+							"show": {
+								"ru": "Никто не мог сравниться с тобой в беге. Ты легко уклонялся от чужих рук, преодолевал препятствия, будто их не было, и на широких открытых площадках был неуловим. Твои ноги становились сильнее с каждой игрой, дыхание выравнивалось, а тело само подсказывало, как быстрее сократить расстояние до цели.",
+								"en": "No one could match you in running. You easily dodged other people's hands, overcame obstacles as if they weren't there, and were elusive in wide open spaces. Your legs grew stronger with each game, your breathing evened out, and your body itself told you how to quickly close the distance to your goal."
+							},
+							"change_skill": {"speed": 1},
+						}
+				},
+				{
+					"text": { "ru": "был лучшим в азартных играх.", "en": "was the best at gambling games"},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты всегда знал, когда рискнуть, а когда отступить. Ты выигрывал больше, чем проигрывал, и даже когда терял, не сдавался, уверенный, что следующая игра принесёт удачу. Другие ломали голову, почему именно тебе всегда выпадали лучшие кости или почему ты угадывал, в какой руке спрятан камень. Может, дело было в хитрости, а может, просто в везении.",
+								"en": "You always knew when to take a risk and when to back down. You won more than you lost, and even when you lost, you didn't give up, confident that the next game would bring you luck. Others puzzled over why you always got the best dice, or why you guessed which hand the stone was in. Maybe it was cunning, or maybe just luck."
+							},
+							"change_skill": {"luck": 1},
+						}
+				}
+			]
+		},
+		"6": {
+			"text": {
+				"ru": "С приближением вечера, когда до наступления сумерек оставалось немного времени, ты часто...",
+				"en": "As evening approached and there was little time left before dusk, you would often..."
+			},
+			"choices": [
+				{
+					"text": { "ru": "помогал бабке готовить травы и применять настои.", "en": "helped granny prepare herbs and use infusions."},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты запоминал, какие листья лучше заживляют раны, какие снимают жар, а какие способны усыпить даже самого беспокойного младенца. Руки привыкли к тонкой работе – резать, толочь, варить. Ты слушал старуху, вбирая её знания, и вскоре сам мог сказать, какие травы нужны больному, не дожидаясь её совета.",
+								"en": "You remembered which leaves healed wounds best, which ones reduced fever, and which ones could lull even the most restless baby to sleep. Your hands got used to fine work – cutting, pounding, cooking. You listened to the old woman, absorbing her knowledge, and soon you could tell yourself which herbs the patient needed without waiting for her advice."
+							},
+							"change_skill": {"intelligence": 1},
+						},
+					"conditions": {"is_family_guy": false}
+				},
+				{
+					"text": { "ru": "развлекал отдыхающих жителей.", "en": "entertained resting villagers."},
+					"effects":
+						{
+							"show": {
+								"ru": "Ты знал, какие истории заставят смеяться даже самого хмурого слушателя. Твои песни и шутки собирали вокруг себя толпы, и когда взрослые тяжело вздыхали после долгого дня, твой голос наполнял их вечер лёгкостью. Ты чувствовал людей, знал, когда подлить масла в огонь, а когда промолчать, чтобы интерес не угас.",
+								"en": "You knew which stories would make even the most gloomy listener laugh. Your songs and jokes drew crowds, and when adults sighed heavily after a long day, your voice filled their evening with lightness. You sensed people, knew when to add fuel to the fire, and when to remain silent so that the interest did not fade."
+							},
+							"change_skill": {"charisma": 1},
+						},
+					"conditions": {"is_family_guy": true}
+				},
+				{
+					"text": { "ru": "работал до темноты.", "en": "worked until dark."},
+					"effects": 
+						{
+							"show": {
+								"ru": "Сумерки опускались на деревню, но для тебя это был всего лишь ещё один оттенок дня. Твои руки не прекращали трудиться, спина не знала отдыха, а ноги не ощущали усталости. Ты привык к долгой, монотонной работе, знал, как не давать телу поддаваться слабости. Там, где другие опускали руки, ты лишь глубже вдыхал вечерний воздух и продолжал.",
+								"en": "Dusk was falling on the village, but for you it was just another shade of day. Your hands never stopped working, your back never rested, and your legs never felt tired. You were used to long, monotonous work, you knew how not to let your body give in to weakness. Where others gave up, you just took a deep breath of the evening air and continued."
+							},
+							"change_skill": {"endurance": 1},
+						},
+					"conditions": {"is_family_guy": false}
+				},
+				{
+					"text": { "ru": "тренировался с палками и метанием камней.", "en": "trained with sticks and stone throwing"},
+					"effects":
+						{
+							"show": {
+								"ru": "Когда солнце садилось за горизонт, ты сжимал в руках палку и отрабатывал удары, пока мышцы не ныли от напряжения. Ты метко бросал камни в дальние мишени, представляя, что в бою тебе не будет равных. Каждое движение становилось отточеннее, а руки – крепче. Со временем ты понял, что сила – это не только вес удара, но и умение правильно его наносить.",
+								"en":"As the sun set, you gripped a stick and practiced your blows until your muscles ached from the strain. You threw stones accurately at distant targets, imagining that you would have no equal in battle. Each movement became more precise, and your hands became stronger. Over time, you realized that strength is not only the weight of the blow, but also the ability to deliver it rightly."
+							},
+							"change_skill": {"strength": 1},
+						},
+					"conditions": {"is_family_guy": false}
+				},
+				{
+					"text": { "ru": "забирался на крыши и через заборы.", "en": "climbed onto roofs and over fences."},
+					"effects":
+						{
+							"show": {
+								"ru": "С последними лучами солнца ты чувствовал, как твои ноги сами ведут тебя в погоню за новым вызовом. Прыжки по веткам деревьев, взбегание по покатым крышам, балансирование на узких заборах – всё это стало для тебя обычным делом. Ты ловко обходил любые препятствия, а если вдруг терял равновесие, знал, как упасть так, чтобы мгновенно снова оказаться на ногах.",
+								"en": "With the last rays of the sun, you felt your legs leading you in pursuit of a new challenge. Jumping on tree branches, running up sloping roofs, balancing on narrow fences - all this became a routine for you. You deftly avoided any obstacles, and if you suddenly lost your balance, you knew how to fall so that you would instantly be back on your feet."
+							},
+							"change_skill": {"dexterity": 1},
+						},
+					"conditions": {"is_family_guy": true}
+				},
+				{
+					"text": { "ru": "прислушивался к звукам ночи, пытаясь разобрать далекие разговоры.", "en": "listened to the sounds of the night, trying to make out distant conversations."},
+					"effects":
+						{
+							"show": {
+								"ru": "Сумерки приносили с собой не только тишину, но и тайны. Ты слушал, как днём знакомые звуки превращаются в шёпот ветра, как скрипят старые хижины, а чьи-то голоса несутся через поля. Ты научился различать едва уловимые звуки, замечать мельчайшие детали в сгущающемся мраке. Там, где другие видели лишь тьму, ты находил целый мир, полный знаков и подсказок.",
+								"en": "The twilight brought not only silence, but also secrets. You listened to familiar sounds during the day turn into the whisper of the wind, to the creaking of old huts, and to the sound of voices rushing across the fields. You learned to distinguish barely audible sounds, to notice the smallest details in the thickening darkness. Where others saw only darkness, you found a whole world full of signs and clues."
+							},
+							"change_skill": {"perception": 1},
+						},
+					"conditions": {"is_family_guy": false}
+				},
+				{
+					"text": { "ru": "соревновался с друзьями в беге.", "en": "competed with friends in running."},
+					"effects": 
+						{
+							"show": {
+								"ru": "Каждый вечер вы собирались в одном и том же месте – и начиналась гонка. Ты чувствовал ветер в лицо, землю, исчезающую под ногами, и азарт, заставляющий тебя выкладываться до последнего. Бег становился естественным, тело запоминало, как двигаться быстрее, когда ускоряться, а когда экономить силы. Вскоре никто уже не мог тебя обогнать.",
+								"en": "Every evening you would gather in the same place - and the race would begin. You would feel the wind in your face, the ground disappearing under your feet, and the excitement that made you give it your all. Running became natural, the body remembered how to go faster, when to accelerate, and when to save energy. Soon no one could overtake you."
+							},
+							"change_skill": {"speed": 1},
+						},
+					"conditions": {"is_family_guy": true}
+				},
+				{
+					"text": { "ru": "играл в кости и загадывал, каким будет следующий день.", "en": "played dice and tried to guess what the next day would bring."},
+					"effects":
+						{
+							"show": {
+								"ru": "Вечерние игры были для тебя не просто развлечением, а настоящей тренировкой удачи. Ты бросал кости, угадывал, на какую сторону упадёт лист, и шептал друзьям, каким будет завтрашний день. Иногда тебе везло, иногда нет – но ты знал, что удача не только приходит и уходит, но и учит чувствовать, когда рискнуть, а когда сделать шаг назад.",
+								"en": "Evening games were more than just entertainment for you — they were real training for your luck. You rolled the dice, guessed which way a falling leaf would land, and whispered to your friends what tomorrow would be like. Sometimes you got it right, sometimes you didn’t, but you learned that luck doesn’t just come and go, it teaches you when to take a risk and when to step back."
+							},
+							"change_skill": {"luck": 1},
+						},
+					"conditions": {"is_family_guy": true}
+				}
+			]
+		},
+		"7": {
+			"text": {
+				"ru": "«За Злыми Водами живут злые люди», — говорили старейшины. Еще совсем недавно это были просто слова, никто не мог устоять перед переменчивыми ветрами и изменчивыми течениями злых вод. Однако то теплое и жутко тихое лето изменило все. По началу были лишь слухи о снующих по берегам остроухих охотниках, которых никогда раньше не видели в этих краях. В ту же ночь слухи стали реальностью...",
+				"en": "\"Evil people live beyond the Evil Waters,\" said the elders. Until recently, these were just words; no one could resist the fickle winds and fickle currents of the evil waters. However, that warm and eerily quiet summer changed everything. At first, there were only rumors of pointy-eared hunters scurrying along the banks, who had never been seen in these parts before. That same night, the rumors became reality..."
+			},
+		},
+		"8": {
+			"text": {"ru": "Когда незнакомцы совершили набег на вашу деревню, вы...", "en": "When strangers raided your village, you..."},
+			"choices": [
+				{
+					"text": { "ru": "сражался как мангуст.", "en": "fought like a mongoose."},
+					"effects": {"change_skill": {"dexterity": 1}}
+				},
+				{
+					"text": { "ru": "сражался как медведь.", "en": "fought like a bear."},
+					"effects": {"change_skill": {"strength": 1}}
+				},
+				{
+					"text": { "ru": "пытался перехитрить их.", "en": "tried to outwit them."},
+					"effects": {"change_skill": {"intelligence": 1}}
+				},
+				{
+					"text": { "ru": "был ранен и отступил.", "en": "was wounded and retreated."},
+					"effects": {"change_skill": {"endurance": 1}}
+				}
+			]
+		},
+		"9": {
+			"text": {
+				"ru": "Вы пытались внести свой вклад, но этого было недостаточно. Их было всего дюжина, но каждый был как неприступная крепость. Ваш вождь пал в битве. Они убили троих и забрали десятерых, оставив только стариков, женщин и маленьких детей.",
+				"en": "You tried to do your part, but it was not enough. There were only a dozen of them, but each one was like an impregnable fortress. Your chief fell in the battle. They killed three and took ten, leaving only the old men, women, and small children."
+			},
+		},
+		"10": {
+			"text": {
+				"ru": "Местная знать помогла понять остроухих. Они говорили о спасении души, жизни без смерти и святом труде ради Великого Мэтра. Однако шли годы, и бесконечная работа в каменных городах постепенно отняла у вас всех друзей и знакомых.",
+				"en": "The local nobility helped to understand the pointy-eared. They spoke of saving the soul, life without death and holy work for the sake of the Great Maitre. However, years passed, and the endless work in the stone cities gradually took away all your friends and acquaintances."
+			},
+		},
+	}
+}

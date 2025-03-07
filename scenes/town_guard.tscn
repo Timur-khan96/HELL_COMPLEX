@@ -1,17 +1,21 @@
 [gd_scene load_steps=13 format=3 uid="uid://dpi1qxbd5x77i"]
 
-[ext_resource type="Script" path="res://scripts/town_guard.gd" id="1_kggx8"]
+[ext_resource type="Script" uid="uid://dcw8aawelm6jd" path="res://scripts/town_guard.gd" id="1_kggx8"]
 [ext_resource type="Texture2D" uid="uid://c53iqpsnv3cr6" path="res://assets/other_characters/guard.png" id="2_ki2a1"]
-[ext_resource type="Script" path="res://custom_resources/character_stats.gd" id="2_wv4hw"]
+[ext_resource type="Script" uid="uid://cb0gypncony7i" path="res://custom_resources/character_stats.gd" id="2_wv4hw"]
 
 [sub_resource type="Resource" id="Resource_p1njj"]
 script = ExtResource("2_wv4hw")
-strength = 5
-dexterity = 1
-intelligence = 1
-endurance = 1
-charisma = 1
-luck = 1
+stats = {
+"charisma": 1,
+"dexterity": 1,
+"endurance": 1,
+"intelligence": 1,
+"luck": 1,
+"perception": 1,
+"speed": 1,
+"strength": 1
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7won"]
 size = Vector3(1.30769, 1.5613, 0.604411)
@@ -155,10 +159,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1d3th"]
 _data = {
-"RESET": SubResource("Animation_6nyap"),
-"attack": SubResource("Animation_fpg23"),
-"die": SubResource("Animation_q528u"),
-"move": SubResource("Animation_nskqa")
+&"RESET": SubResource("Animation_6nyap"),
+&"attack": SubResource("Animation_fpg23"),
+&"die": SubResource("Animation_q528u"),
+&"move": SubResource("Animation_nskqa")
 }
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3kyg4"]
@@ -180,7 +184,7 @@ shape = SubResource("BoxShape3D_shpjg")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_1d3th")
+&"": SubResource("AnimationLibrary_1d3th")
 }
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cb2wxnj3haprp"]
 
-[ext_resource type="Shader" path="res://shaders/sprite_explosion.gdshader" id="1_x7cr3"]
+[ext_resource type="Shader" uid="uid://dy3fsj65jehrr" path="res://shaders/sprite_explosion.gdshader" id="1_x7cr3"]
 [ext_resource type="Texture2D" uid="uid://h4rr8n2j14wb" path="res://assets/textures/blue.png" id="2_cff47"]
 [ext_resource type="Texture2D" uid="uid://n0vt1vtpqbdn" path="res://assets/misc/pixel.png" id="3_ft0jh"]
-[ext_resource type="Script" path="res://scripts/effects/sprite_explosion.gd" id="4_ygedx"]
+[ext_resource type="Script" uid="uid://da2ujw5ugopfx" path="res://scripts/effects/sprite_explosion.gd" id="4_ygedx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5wgut"]
 shader = ExtResource("1_x7cr3")
@@ -11,18 +11,18 @@ shader_parameter/spread = 180.0
 shader_parameter/inherit_emitter_velocity_ratio = 0.0
 shader_parameter/initial_linear_velocity_min = 100.0
 shader_parameter/initial_linear_velocity_max = 100.0
-shader_parameter/orbit_velocity_min = null
-shader_parameter/orbit_velocity_max = null
-shader_parameter/radial_velocity_min = null
-shader_parameter/radial_velocity_max = null
-shader_parameter/linear_accel_min = null
-shader_parameter/linear_accel_max = null
-shader_parameter/radial_accel_min = null
-shader_parameter/radial_accel_max = null
-shader_parameter/tangent_accel_min = null
-shader_parameter/tangent_accel_max = null
-shader_parameter/damping_min = null
-shader_parameter/damping_max = null
+shader_parameter/orbit_velocity_min = 0.0
+shader_parameter/orbit_velocity_max = 0.0
+shader_parameter/radial_velocity_min = 0.0
+shader_parameter/radial_velocity_max = 0.0
+shader_parameter/linear_accel_min = 0.0
+shader_parameter/linear_accel_max = 0.0
+shader_parameter/radial_accel_min = 0.0
+shader_parameter/radial_accel_max = 0.0
+shader_parameter/tangent_accel_min = 0.0
+shader_parameter/tangent_accel_max = 0.0
+shader_parameter/damping_min = 0.0
+shader_parameter/damping_max = 0.0
 shader_parameter/scale_min = 1.0
 shader_parameter/scale_max = 2.0
 shader_parameter/lifetime_randomness = 1.0
@@ -34,11 +34,11 @@ shader_parameter/sprite = ExtResource("2_cff47")
 [node name="sprite_explosion" type="GPUParticles2D"]
 emitting = false
 amount = 8100
-process_material = SubResource("ShaderMaterial_5wgut")
 texture = ExtResource("3_ft0jh")
 one_shot = true
 explosiveness = 1.0
 local_coords = true
+process_material = SubResource("ShaderMaterial_5wgut")
 script = ExtResource("4_ygedx")
 
 [connection signal="finished" from="." to="." method="_on_finished"]

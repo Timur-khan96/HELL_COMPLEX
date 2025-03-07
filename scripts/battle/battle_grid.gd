@@ -50,10 +50,10 @@ func _draw():
 				var t = textures[cell.type]
 				var size = t.get_size() * tex_scale
 				draw_texture_rect(t, Rect2(cell.sprite_pos, size), false)
-	if selected_vec:
+	if selected_vec != null:
 		var p = Vector2(selected_vec.x, selected_vec.y) * CELL_SIZE
 		draw_rect(Rect2(p, Vector2(CELL_SIZE,CELL_SIZE)), Color.YELLOW, false, 2)
-	if hovered_vec and hovered_vec != selected_vec:
+	if hovered_vec != null and hovered_vec != selected_vec:
 		var p = Vector2(hovered_vec.x, hovered_vec.y) * CELL_SIZE
 		draw_rect(Rect2(p, Vector2(CELL_SIZE, CELL_SIZE)), Color.LIGHT_BLUE, false, 2)
 				
@@ -79,35 +79,35 @@ func check_matches():
 	for i in GRID_ROWS:
 		for j in GRID_COLS:
 			var type = grid[i][j].type
-			if !type: continue
+			if type == "": continue
 			var horizontal = j + 2 < GRID_COLS && (grid[i][j + 1].type == type && grid[i][j + 2].type == type)
 			var vertical = i + 2 < GRID_ROWS && (grid[i + 1][j].type == type && grid[i + 2][j].type == type)
 			if !horizontal && !vertical: continue
 			match_found = true
-			matched[grid[i][j]] = true
+			matched[Vector2i(i, j)] = true
 			if horizontal:
 				var col = j + 1
 				while(col < GRID_COLS && grid[i][col].type == type):
-					matched[grid[i][col]] = true
-					check_matches_col(col, matched, type)
+					matched[Vector2i(i, col)] = true
+					check_matches_col(col, i, matched, type)
 					col += 1
 			if vertical:
 				var row = i + 1
 				while row < GRID_ROWS && grid[row][j].type == type:
-					matched[grid[row][j]] = true
-					check_matches_row(row, matched, type)
+					matched[Vector2i(row, j)] = true
+					check_matches_row(row, j, matched, type)
 					row += 1
 	if match_found:
 		var match_count = {}
-		for cell in matched.keys():
+		for coords in matched.keys():
+			var cell = grid[coords.x][coords.y]
 			match_count[cell.type] = match_count.get(cell.type, 0) + 1
 			explode(cell.sprite_pos, textures[cell.type])
 			cell.type = ""
 		got_matches.emit(match_count)
 	return match_found
 	
-func check_matches_row(row: int, matched: Dictionary, type):
-	var col = matched.keys().back().grid_pos.x #-1 returns last element
+func check_matches_row(row: int, col: int, matched: Dictionary, type):
 	var has_matches = false
 	if col + 2 < GRID_COLS:
 		has_matches = grid[row][col + 1].type == type && grid[row][col + 2].type == type
@@ -119,16 +119,15 @@ func check_matches_row(row: int, matched: Dictionary, type):
 
 	var new_col = col + 1
 	while new_col < GRID_COLS && grid[row][new_col].type == type:
-		matched[grid[row][new_col]] = true
+		matched[Vector2i(row, new_col)] = true
 		new_col += 1
 
 	new_col = col - 1
 	while new_col >= 0 && grid[row][new_col].type == type:
-		matched[grid[row][new_col]] = true
+		matched[Vector2i(row, new_col)] = true
 		new_col -= 1
 
-func check_matches_col(col: int, matched: Dictionary, type):
-	var row = matched.keys().back().grid_pos.y
+func check_matches_col(col: int, row: int, matched: Dictionary, type):
 	var has_matches = false
 	if row + 2 < GRID_ROWS:
 		has_matches = grid[row + 1][col].type == type && grid[row + 2][col].type == type
@@ -140,12 +139,12 @@ func check_matches_col(col: int, matched: Dictionary, type):
 
 	var new_row = row + 1
 	while new_row < GRID_ROWS && grid[new_row][col].type == type:
-		matched[grid[new_row][col]] = true
+		matched[Vector2i(new_row, col)] = true
 		new_row += 1
 
 	new_row = row - 1
 	while new_row >= 0 && grid[new_row][col].type == type:
-		matched[grid[new_row][col]] = true
+		matched[Vector2i(new_row, col)] = true
 		new_row -= 1
 		
 func explode(pos: Vector2, texture: Texture2D):
@@ -155,6 +154,7 @@ func explode(pos: Vector2, texture: Texture2D):
 	Vector3(CELL_SIZE / 2,CELL_SIZE / 2,1))
 	e.process_material.set_shader_parameter("sprite", texture)
 	add_child(e)
+	await get_tree().process_frame
 	e.emitting = true
 			
 func apply_gravity():
@@ -177,7 +177,7 @@ func apply_gravity():
 			grid[0][col].is_moving = true
 					
 func move_stones(delta):
-	const vel = 400
+	const vel = 200
 	for row in range(GRID_ROWS):
 		for col in range(GRID_COLS):
 			if grid[row][col].is_moving:
@@ -199,8 +199,9 @@ func move_stones(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		var mouse_pos = get_local_mouse_position()
-		var col = int(mouse_pos.x / CELL_SIZE)
-		var row = int(mouse_pos.y / CELL_SIZE)
+		var col = clamp(int(mouse_pos.x / CELL_SIZE), 0, GRID_COLS - 1)
+		var row = clamp(int(mouse_pos.y / CELL_SIZE), 0, GRID_ROWS - 1)
+		GameManager.debug_label.text = "(" + str(row) + ", " + str(col) + ")"
 		
 		if col < 0 or col >= GRID_COLS or row < 0 or row >= GRID_ROWS:
 			hovered_vec = null
@@ -209,6 +210,7 @@ func _input(event):
 			var new_hovered = Vector2i(col, row)
 			if hovered_vec != new_hovered:
 				hovered_vec = new_hovered
+				GameManager.debug_label.text += "\n" + str(hovered_vec)
 				queue_redraw()
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var mouse_pos = get_local_mouse_position()

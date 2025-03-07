@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bnsa8n3nfdwm6"
+
+[deps]
+
+files=["res://translation/hell_complex_translation.en.translation", "res://translation/hell_complex_translation.ru.translation"]
+
+source_file="res://translation/hell_complex_translation.csv"
+dest_files=["res://translation/hell_complex_translation.en.translation", "res://translation/hell_complex_translation.ru.translation"]
+
+[params]
+
+compress=true
+delimiter=0

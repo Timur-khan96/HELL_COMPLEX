@@ -1,19 +1,90 @@
-[gd_scene load_steps=5 format=3 uid="uid://bcb8mwbftiwqa"]
+[gd_scene load_steps=2 format=3 uid="uid://bcb8mwbftiwqa"]
 
-[ext_resource type="Script" path="res://scripts/main.gd" id="1_t6icl"]
-[ext_resource type="Script" path="res://custom_resources/character_stats.gd" id="2_054lf"]
-[ext_resource type="PackedScene" uid="uid://b6h2rcw2tfwbn" path="res://scenes/town_square_scene.tscn" id="3_kw7km"]
-
-[sub_resource type="Resource" id="Resource_nvf6x"]
-script = ExtResource("2_054lf")
-strength = 10
-dexterity = 1
-intelligence = 1
-endurance = 1
-charisma = 1
-luck = 1
+[ext_resource type="Script" uid="uid://b7xsv4n33b1wo" path="res://scripts/main.gd" id="1_t6icl"]
 
 [node name="main" type="Node3D"]
 script = ExtResource("1_t6icl")
-player_stats = SubResource("Resource_nvf6x")
-first_scene = ExtResource("3_kw7km")
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = -86.5
+offset_right = 208.0
+offset_bottom = 86.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="main_menu/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "HELL COMPLEX"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="eng_button" type="Button" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+text = "eng"
+
+[node name="rus_button" type="Button" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+process_mode = 3
+layout_mode = 2
+size_flags_horizontal = 3
+text = "рус"
+
+[node name="start_button" type="Button" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 2
+text = "START"
+
+[node name="exit_button" type="Button" parent="main_menu/PanelContainer/MarginContainer/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+text = "EXIT"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+
+[node name="debug_label" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="main_menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/eng_button" to="." method="_on_eng_button_pressed"]
+[connection signal="pressed" from="main_menu/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/rus_button" to="." method="_on_rus_button_pressed"]
+[connection signal="pressed" from="main_menu/PanelContainer/MarginContainer/VBoxContainer/start_button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="main_menu/PanelContainer/MarginContainer/VBoxContainer/exit_button" to="." method="_on_exit_button_pressed"]

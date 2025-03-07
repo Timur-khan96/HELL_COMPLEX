@@ -9,7 +9,10 @@ const SPEED = 3.0
 @onready var health_bar = %health_bar
 
 var interactions = []
-var current_enemy = null #to init battle
+var current_enemy = null
+var equipped_item = null
+
+func get_equipped(): return equipped_1
 
 func play_anim(anim_name): anim_tree.play_anim(anim_name)
 func stop_anim(anim_name): anim_tree.stop_anim(anim_name)
@@ -66,9 +69,11 @@ func hit(damage):
 func set_action_info(interaction):
 	action_info.text = interaction.obj_name
 	if interaction is Attackable:
-		action_info.text += ", F to fight."
+		action_info.text += ", [F] to fight."
 	elif interaction is Equipable:
-		action_info.text += ", E to equip"
+		action_info.text += ", [E] to equip"
+	elif interaction is Interactable:
+		action_info.text += ", [E] to interact"
 
 func _on_animation_finished(anim_name):
 	if anim_name == "attack" and current_enemy:
@@ -89,7 +94,11 @@ func _interaction_exited(interaction):
 		else:
 			set_action_info(interactions.back())
 			
+func _on_battle_finished():
+	anim_tree.stop_anim("fight_begin")
+			
 func equip(item: Item):
+	equipped_item = item
 	equipped_1.texture = item.texture
 	equipped_1.position = item.sprite_transform.position
 	equipped_1.rotation_degrees = item.sprite_transform.rotation
