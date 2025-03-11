@@ -160,7 +160,8 @@ void start() {
 
 	// Set particle to match sprite pixel color
 	vec2 particlePosition = TRANSFORM[3].xy;
-	vec4 spriteColor = texture(sprite, vec2(0.5, 0.5));
+	vec2 texture5 = vec2(textureSize(sprite, 0));
+	vec4 spriteColor = texture(sprite, particlePosition / texture5 + vec2(0.5, 0.5));
 	COLOR = spriteColor;
 	// Disable transparent particles
 	if (spriteColor.a < 0.0001) { ACTIVE = false; }

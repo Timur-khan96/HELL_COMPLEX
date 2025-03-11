@@ -19,11 +19,21 @@ config/icon="res://icon.svg"
 
 GameManager="*res://scripts/autoloads/GameManager.gd"
 
+[debug]
+
+shapes/navigation/geometry_edge_color=Color(0.605103, 0.155204, 0.211693, 1)
+shapes/navigation/geometry_face_color=Color(0.789336, 0, 0.297216, 0.4)
+shapes/collision/shape_color=Color(0.334014, 0.622518, 1.73271e-06, 0.42)
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 window/size/mode=3
+
+[global_group]
+
+combatant=""
 
 [gui]
 

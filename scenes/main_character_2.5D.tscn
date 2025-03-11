@@ -77,6 +77,7 @@ script = ExtResource("1_pggbv")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00932312, 0.105209, -0.00889587)
 shape = SubResource("BoxShape3D_jkang")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.024, 0, 0)
@@ -109,29 +110,26 @@ unique_name_in_owner = true
 position = Vector2(256, 176)
 
 [node name="torso" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="0"]
-position = Vector2(-1, 76.8691)
+position = Vector2(-1, 76.0021)
 
 [node name="head" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="2"]
-position = Vector2(-3, 14.8691)
+position = Vector2(-3, 14.0021)
 
 [node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="7"]
-position = Vector2(-39, 76.8691)
-scale = Vector2(0.999986, 0.999986)
+position = Vector2(-39, 76.0021)
+scale = Vector2(0.999985, 0.999985)
 
 [node name="right_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="8"]
-position = Vector2(15, 35.8691)
+position = Vector2(15, 35.0021)
 
 [node name="right_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="9"]
-position = Vector2(32, 74.8691)
+position = Vector2(32, 74.0021)
 
 [node name="left_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="10"]
-position = Vector2(-26, 36.8691)
+position = Vector2(-26, 36.0021)
 
 [node name="chest" parent="Sprite3D/SubViewport/sprite_skeleton/Skeleton2D/hips" index="3"]
-position = Vector2(0, -14.1309)
-
-[node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/Skeleton2D/hips/chest/left_arm" index="0"]
-scale = Vector2(0.999985, 0.999985)
+position = Vector2(0, -14.9979)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("%sprite_skeleton")
@@ -163,6 +161,16 @@ theme_override_constants/margin_bottom = 16
 
 [node name="action_info" type="Label" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="damage_pop" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.356534, 0.415023, 0)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]
 

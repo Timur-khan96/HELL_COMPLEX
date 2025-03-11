@@ -1,12 +1,11 @@
 extends CharacterBody3D
 class_name Player
 
-const SPEED = 3.0
-
 @onready var anim_tree = $AnimationTree
 @onready var equipped_1 = %sprite_skeleton.get_node("sprites/left_hand/equipped_1")
 @onready var action_info = $MarginContainer/action_info
 @onready var health_bar = %health_bar
+@onready var damage_pop = $damage_pop
 
 var interactions = []
 var current_enemy = null
@@ -20,18 +19,20 @@ func stop_anim(anim_name): anim_tree.stop_anim(anim_name)
 var health: 
 	get(): return GameManager.player_health
 	
+var movement_speed:
+	get(): return GameManager.player_stats.get_movement_speed()
+	
 func _ready():
 	health_bar.max_value = GameManager.player_stats.get_default_health()
 	health_bar.value = GameManager.player_health
 
 func _physics_process(_delta):
 	if GameManager.game_state == GameManager.GameStates.BATTLE: return
-	#is_on_floor(): can be used to check if the character left the scene
 	var input_dir = Input.get_vector("Left", "Right", "Up", "Down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * movement_speed
+		velocity.z = direction.z * movement_speed
 		$Sprite3D.flip_h = direction.x < 0
 		anim_tree.play_anim("move")
 	else:
@@ -53,10 +54,11 @@ func _input(event):
 func get_attackable():
 	if !interactions.is_empty():
 		for i in interactions:
-			if i is Attackable: return i 
+			if i.is_in_group("combatant"): return i #or Character
 	return null
 			
 func hit(damage):
+	show_damage(damage)
 	GameManager.player_health -= damage
 	if GameManager.player_health <= 0:
 		anim_tree.play_anim("die")
@@ -65,10 +67,20 @@ func hit(damage):
 	tween.tween_property(health_bar, "value", GameManager.player_health, 1)
 	tween.tween_interval(0.5)
 	tween.tween_callback(health_bar.hide)
+	
+func show_damage(damage):
+	damage_pop.show()
+	damage_pop.text = "-" + str(int(damage))
+	var pop_pos = damage_pop.global_position
+	var tween = get_tree().create_tween()
+	tween.tween_property(damage_pop, "global_position", Vector3.UP * 2, 2).as_relative()
+	await tween.finished
+	damage_pop.hide()
+	damage_pop.global_position = pop_pos
 		
 func set_action_info(interaction):
 	action_info.text = interaction.obj_name
-	if interaction is Attackable:
+	if interaction.is_in_group("combatant"):
 		action_info.text += ", [F] to fight."
 	elif interaction is Equipable:
 		action_info.text += ", [E] to equip"

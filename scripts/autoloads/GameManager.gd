@@ -3,6 +3,7 @@ extends Node
 signal battle_started
 
 enum GameStates {TEXT, ADVENTURE, BATTLE}
+enum CharStates { IDLE, MOVING, DEAD, BUSY } #busy fighting or in dialogue
 var game_state: GameStates = GameStates.TEXT
 
 var debug_label

@@ -1,21 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpi1qxbd5x77i"]
+[gd_scene load_steps=12 format=3 uid="uid://dpi1qxbd5x77i"]
 
 [ext_resource type="Script" uid="uid://dcw8aawelm6jd" path="res://scripts/town_guard.gd" id="1_kggx8"]
 [ext_resource type="Texture2D" uid="uid://c53iqpsnv3cr6" path="res://assets/other_characters/guard.png" id="2_ki2a1"]
-[ext_resource type="Script" uid="uid://cb0gypncony7i" path="res://custom_resources/character_stats.gd" id="2_wv4hw"]
-
-[sub_resource type="Resource" id="Resource_p1njj"]
-script = ExtResource("2_wv4hw")
-stats = {
-"charisma": 1,
-"dexterity": 1,
-"endurance": 1,
-"intelligence": 1,
-"luck": 1,
-"perception": 1,
-"speed": 1,
-"strength": 1
-}
+[ext_resource type="Script" uid="uid://dnbhi25q2agpc" path="res://scripts/state_machine.gd" id="3_e7cqx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7won"]
 size = Vector3(1.30769, 1.5613, 0.604411)
@@ -168,19 +155,23 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_3kyg4"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[node name="guard" type="StaticBody3D"]
+[node name="guard" type="StaticBody3D" groups=["combatant"]]
 script = ExtResource("1_kggx8")
-stats = SubResource("Resource_p1njj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.115609, 0.0170494)
 shape = SubResource("BoxShape3D_w7won")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
-[node name="guard_interact_area" type="Area3D" parent="."]
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("3_e7cqx")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="guard_interact_area"]
+[node name="interact_area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interact_area"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424652, 0.21756, -0.121704)
 shape = SubResource("BoxShape3D_shpjg")
+debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -217,5 +208,29 @@ size_flags_horizontal = 4
 step = 1.0
 show_percentage = false
 
-[connection signal="body_entered" from="guard_interact_area" to="." method="_on_guard_interact_area_body_entered"]
-[connection signal="body_exited" from="guard_interact_area" to="." method="_on_guard_interact_area_body_exited"]
+[node name="speech" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.813597, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+
+[node name="damage_pop" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.427246, 0.415023, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[connection signal="body_entered" from="interact_area" to="." method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="interact_area" to="." method="_on_interact_area_body_exited"]

@@ -150,3 +150,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_awagh")
 }
 autoplay = "move"
+
+[node name="on_screen" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.456506, -1, -0.571839, 0.913011, 2, 1.14368)

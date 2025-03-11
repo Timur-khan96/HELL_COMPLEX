@@ -463,7 +463,7 @@ offset = Vector2(5, 16)
 
 [node name="right_hand" type="Sprite2D" parent="sprites"]
 position = Vector2(32, 73)
-rotation = 2.12782
+rotation = 2.32944
 texture = SubResource("AtlasTexture_krb7p")
 offset = Vector2(30.5632, -5.44771)
 
