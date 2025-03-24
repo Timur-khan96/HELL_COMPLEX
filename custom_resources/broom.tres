@@ -7,6 +7,7 @@
 script = ExtResource("1_blx40")
 obj_name = "broom"
 texture = ExtResource("2_1bg34")
+collision_arr = PackedVector2Array(3, -46, -3, -46, -3, 16, -9, 29, -8, 45, 8, 48, 11, 35, 4, 17)
 sprite_transform = {
 "position": Vector2(-36.7, -14),
 "rotation": -178.6,

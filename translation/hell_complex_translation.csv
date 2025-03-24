@@ -21,3 +21,22 @@ TRASH,trash,мусор
 START,start,старт
 CONTINUE,continue,продолжить
 EXIT,exit,выйти
+GUARD_LINE_1,Take the broom and sweep the trash!,Бери метлу и подметай мусор!
+GUARD_LINE_2,Don't make me angry!,Лучше не зли меня!
+TRASH_NO_BROOM,I'm not hungry,Я не голоден
+TRASH_NO_BROOM_2,I need a broom,Мне нужна метла
+GUARD_THREAT,I will beat you to death,Я на тебе живого места не оставлю
+PLAYER_GUARD_THREAT,I am already dead inside,Я уже мертв внутри
+CRITICAL_THREAT,Are you scared?,Страшно тебе?
+TO_INTERACT,to interact,взаимодействовать
+TO_ATTACK,to attack,напасть
+TO_TAKE,to take,взять
+TO_TALK,to talk,поговорить
+OLD_ELF_CALL,"Help an old veteran, will you?","Поможешь старому ветерану, а?"
+OLD_ELF_COMPLAIN,"This is how they talk to older people now, what a generation!","Так теперь разговаривают с пожилыми людьми, ну что за поколение!"
+SUCCESS,Success!,Успех!
+FAIL,Fail!,Провал!
+WHAT,What?,Что?
+OLD_ELF_FIGHT_REACT,Guards!,Стража!
+ELF_GIRL_FIGHT_REACT,"No, thank you.","Спасибо, не надо."
+ENEMY_THROWS,Enemy throws,Противник бросает

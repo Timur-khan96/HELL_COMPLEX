@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://doyqkkyny78xh"]
+[gd_scene load_steps=7 format=3 uid="uid://doyqkkyny78xh"]
 
 [ext_resource type="PackedScene" uid="uid://dj4qpqru2q8f2" path="res://scenes/interactable/interactable.tscn" id="1_c250g"]
 [ext_resource type="Script" uid="uid://cvkh0el4iq66e" path="res://scripts/interactable/trash.gd" id="2_ex25p"]
 [ext_resource type="Texture2D" uid="uid://bycc28qndp4cq" path="res://assets/misc/trash_sheet.png" id="3_caife"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3g5vq"]
+resource_local_to_scene = true
+size = Vector3(0.711441, 0.856873, 0.660569)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u3irv"]
 resource_local_to_scene = true
@@ -19,13 +23,15 @@ script = ExtResource("2_ex25p")
 
 [node name="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0545885, 0.41037, -0.075127)
-debug_color = Color(0, 0.6, 0.7, 0.42)
+shape = SubResource("BoxShape3D_3g5vq")
 
 [node name="Sprite3D" parent="." index="1"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.0398642, 0.109038, -0.00451995)
+shaded = true
 texture = SubResource("AtlasTexture_u3irv")
 
 [node name="Sprite3D2" type="Sprite3D" parent="." index="2"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.123094, 0.109038, -0.168642)
+shaded = true
 texture_filter = 0
 texture = SubResource("AtlasTexture_d3et6")

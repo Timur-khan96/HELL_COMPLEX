@@ -6,8 +6,8 @@ var explosion = load("res://scenes/effects/stone_explosion.tscn")
 var line_bonus = preload("res://assets/textures/line_bonus.png")
 var double_line = preload("res://assets/textures/double_line_bonus.png")
 
-const GRID_ROWS = 10
-const GRID_COLS = 10
+const GRID_ROWS = 8
+const GRID_COLS = 8
 const CELL_SIZE = 90
 const STONE_TYPES = ["red", "blue", "green", "yellow", "orange", "purple"]
 enum BONUS_TYPES {NONE, HORIZONTAL, VERTICAL, DOUBLE}
@@ -283,8 +283,8 @@ func move_stones(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		var mouse_pos = get_local_mouse_position()
-		var col = clamp(int(mouse_pos.x / CELL_SIZE), 0, GRID_COLS - 1)
-		var row = clamp(int(mouse_pos.y / CELL_SIZE), 0, GRID_ROWS - 1)
+		var col = int(mouse_pos.x / CELL_SIZE)
+		var row = int(mouse_pos.y / CELL_SIZE)
 		
 		if col < 0 or col >= GRID_COLS or row < 0 or row >= GRID_ROWS:
 			hovered_vec = null

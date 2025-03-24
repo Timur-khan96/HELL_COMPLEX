@@ -19,7 +19,9 @@ func _ready():
 	sprite_2.global_position.z += randf_range(-extents.z, extents.z)
 
 func interact(player_scene):
-	if player_scene.equipped_item == null: return
+	if player_scene.equipped_item == null:
+		player_scene.say(tr("TRASH_NO_BROOM"), 2.0)
+		return
 	if player_scene.equipped_item.obj_name == "broom":
 		is_interacting = true
 		player_scene.play_anim("sweep")
@@ -31,3 +33,5 @@ func interact(player_scene):
 				player_scene.stop_anim("sweep")
 				return
 		super.complete_interaction()
+	else:
+		player_scene.say(tr("TRASH_NO_BROOM_2"), 2.0)

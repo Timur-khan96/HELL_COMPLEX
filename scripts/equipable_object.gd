@@ -1,6 +1,7 @@
-@tool
 extends Area3D
 class_name Equipable
+
+signal equipped
 
 @export var resource: Item:
 	set(value):
@@ -13,6 +14,7 @@ var obj_name: String:
 
 func interact(player_scene):
 	player_scene.equip(resource)
+	equipped.emit()
 	queue_free()
 
 func _on_body_entered(body):

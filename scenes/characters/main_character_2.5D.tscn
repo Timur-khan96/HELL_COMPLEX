@@ -1,0 +1,203 @@
+[gd_scene load_steps=18 format=3 uid="uid://drxmkq524r88q"]
+
+[ext_resource type="PackedScene" uid="uid://5148ijqrpg2w" path="res://scenes/characters/sprite_skeleton.tscn" id="1_jl8h8"]
+[ext_resource type="Script" uid="uid://crvynd407k1ah" path="res://scripts/player/main_character_2.5d.gd" id="1_pggbv"]
+[ext_resource type="Script" uid="uid://bbh51nkyoh6wt" path="res://scripts/player/animation_tree.gd" id="3_sbkn4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uua2e"]
+radius = 0.271724
+height = 1.02027
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_uua2e"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_cnqdv"]
+filters = ["sprites/left_hand/equipped_1:rotation"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_aq4x1"]
+filters = ["sprites/left_hand/equipped_1:rotation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3jles"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_oogn0"]
+filter_enabled = true
+filters = ["Skeleton2D/hips/chest/left_arm/left_hand:rotation", "Skeleton2D/hips/chest/left_arm:rotation", "Skeleton2D/hips/chest/right_arm/right_hand:rotation", "Skeleton2D/hips/chest/right_arm:rotation", "sprites/left_hand/equipped_1:rotation"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_7swlv"]
+filters = ["sprites/left_hand/equipped_1:rotation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_avcqc"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_37cxt"]
+animation = &"fight_begin"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhmcl"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b62id"]
+animation = &"move"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uua2e"]
+animation = &"sweep"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_t57n2"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_t0fpp"]
+nodes/add_fight/node = SubResource("AnimationNodeAdd2_cnqdv")
+nodes/add_fight/position = Vector2(-120, 300)
+nodes/add_move/node = SubResource("AnimationNodeAdd2_aq4x1")
+nodes/add_move/position = Vector2(-340, 240)
+nodes/attack/node = SubResource("AnimationNodeAnimation_3jles")
+nodes/attack/position = Vector2(280, 620)
+nodes/attack_anim/node = SubResource("AnimationNodeOneShot_oogn0")
+nodes/attack_anim/position = Vector2(440, 380)
+nodes/blend_die/node = SubResource("AnimationNodeBlend2_7swlv")
+nodes/blend_die/position = Vector2(100, 400)
+nodes/die/node = SubResource("AnimationNodeAnimation_avcqc")
+nodes/die/position = Vector2(-120, 640)
+nodes/fight/node = SubResource("AnimationNodeAnimation_37cxt")
+nodes/fight/position = Vector2(-440, 700)
+nodes/idle/node = SubResource("AnimationNodeAnimation_fhmcl")
+nodes/idle/position = Vector2(-620, 240)
+nodes/move/node = SubResource("AnimationNodeAnimation_b62id")
+nodes/move/position = Vector2(-660, 500)
+nodes/output/position = Vector2(860, 380)
+nodes/sweep/node = SubResource("AnimationNodeAnimation_uua2e")
+nodes/sweep/position = Vector2(460, 680)
+nodes/sweep_anim/node = SubResource("AnimationNodeOneShot_t57n2")
+nodes/sweep_anim/position = Vector2(660, 400)
+node_connections = [&"add_fight", 0, &"add_move", &"add_fight", 1, &"fight", &"add_move", 0, &"idle", &"add_move", 1, &"move", &"attack_anim", 0, &"blend_die", &"attack_anim", 1, &"attack", &"blend_die", 0, &"add_fight", &"blend_die", 1, &"die", &"output", 0, &"sweep_anim", &"sweep_anim", 0, &"attack_anim", &"sweep_anim", 1, &"sweep"]
+
+[node name="main_character_2_5D" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_pggbv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0109728, 0.366459, -0.00889587)
+shape = SubResource("CapsuleShape3D_uua2e")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.024, 0, 0)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = SubResource("ViewportTexture_uua2e")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+disable_3d = true
+transparent_bg = true
+
+[node name="health_bar" type="ProgressBar" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(224, 32)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -128.0
+offset_top = 64.0
+offset_right = 96.0
+offset_bottom = 96.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+step = 1.0
+show_percentage = false
+
+[node name="sprite_skeleton" parent="Sprite3D/SubViewport" instance=ExtResource("1_jl8h8")]
+unique_name_in_owner = true
+position = Vector2(256, 176)
+
+[node name="torso" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="0"]
+position = Vector2(-1, 75.1647)
+
+[node name="head" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="2"]
+position = Vector2(-3, 13.1647)
+
+[node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="7"]
+position = Vector2(-39, 75.1647)
+
+[node name="right_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="8"]
+position = Vector2(15, 34.1647)
+
+[node name="right_hand" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="9"]
+position = Vector2(32, 73.1647)
+
+[node name="left_arm" parent="Sprite3D/SubViewport/sprite_skeleton/sprites" index="10"]
+position = Vector2(-26, 35.1647)
+
+[node name="chest" parent="Sprite3D/SubViewport/sprite_skeleton/Skeleton2D/hips" index="3"]
+position = Vector2(0, -15.8353)
+
+[node name="left_hand" parent="Sprite3D/SubViewport/sprite_skeleton/Skeleton2D/hips/chest/left_arm" index="0"]
+scale = Vector2(0.999985, 0.999985)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("%sprite_skeleton")
+tree_root = SubResource("AnimationNodeBlendTree_t0fpp")
+anim_player = NodePath("../Sprite3D/SubViewport/sprite_skeleton/AnimationPlayer")
+parameters/add_fight/add_amount = 0.0
+parameters/add_move/add_amount = 0.0
+parameters/attack_anim/active = false
+parameters/attack_anim/internal_active = false
+parameters/attack_anim/request = 0
+parameters/blend_die/blend_amount = 0.0
+parameters/sweep_anim/active = false
+parameters/sweep_anim/internal_active = false
+parameters/sweep_anim/request = 0
+script = ExtResource("3_sbkn4")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 16
+
+[node name="action_info" type="Label" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="damage_pop" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.356534, 0.415023, 0)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="speech" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.849509, 0)
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+autowrap_mode = 2
+width = 300.0
+
+[node name="attack_timer" type="Timer" parent="."]
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.285962, -0.330911, -0.322461, 0.47622, 0.79854, 0.6)
+
+[connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_finished"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
+
+[editable path="Sprite3D/SubViewport/sprite_skeleton"]

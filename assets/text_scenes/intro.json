@@ -39,11 +39,11 @@
 			"text": { "ru": "Каждый день после завтрака ты...", "en": "Every day after breakfast you would..."},
 			"choices": [
 				{
-					"text": { "ru": "помогали семье и близким.", "en": "help family and loved ones."},
+					"text": { "ru": "помогал семье и близким.", "en": "help family and loved ones."},
 					"effects": {"change_condition": {"is_family_guy": true}}
 				},
 				{
-					"text": { "ru": "убегали из дома к друзьям", "en": "ran out to hang out with friends"},
+					"text": { "ru": "убегал из дома к друзьям", "en": "ran out to hang out with friends"},
 					"effects": {"jump": "5"}
 				}
 			]
@@ -103,8 +103,8 @@
 		},
 		"5": {
 			"text": { 
-				"ru": "Ты так и не научился любви к работе, и каждый раз когда кто-то смел надеяться на твое содействие, ты пропускал мимо ушей и бежал к окраинам деревни, к друзьям. Однако, это время не было потрачено впустую, ведь ты...", 
-				"en": "You never learned to love your work, and every time someone dared to hope for your assistance, you ignored them and ran to the outskirts of the village, to your friends. However, this time was not wasted, because you..."
+				"ru": "Ты так и не приучился к работе, и каждый раз когда кто-то смел надеяться на твое содействие, ты пропускал мимо ушей и бежал к окраинам деревни, к друзьям. Однако, это время не было потрачено впустую, ведь ты...", 
+				"en": "You never learned to love work, and every time someone dared to hope for your assistance, you ignored them and ran to the outskirts of the village, to your friends. However, this time was not wasted, because you..."
 			},
 			"choices": [
 				{
@@ -196,7 +196,7 @@
 					"conditions": {"is_family_guy": false}
 				},
 				{
-					"text": { "ru": "тренировался с палками и метанием камней.", "en": "trained with sticks and stone throwing"},
+					"text": { "ru": "тренировался с палками и метанию камней.", "en": "trained with sticks and stone throwing"},
 					"effects":
 						{
 							"show": {
@@ -264,7 +264,7 @@
 			},
 		},
 		"8": {
-			"text": {"ru": "Когда незнакомцы совершили набег на вашу деревню, вы...", "en": "When strangers raided your village, you..."},
+			"text": {"ru": "Когда незнакомцы совершили набег на вашу деревню, ты...", "en": "When strangers raided your village, you..."},
 			"choices": [
 				{
 					"text": { "ru": "сражался как мангуст.", "en": "fought like a mongoose."},
@@ -286,7 +286,7 @@
 		},
 		"9": {
 			"text": {
-				"ru": "Вы пытались внести свой вклад, но этого было недостаточно. Их было всего дюжина, но каждый был как неприступная крепость. Ваш вождь пал в битве. Они убили троих и забрали десятерых, оставив только стариков, женщин и маленьких детей.",
+				"ru": "Ты пытался внести свой вклад, но этого было недостаточно. Их было всего дюжина, но каждый был как неприступная крепость. Ваш вождь пал в битве. Они убили троих и забрали десятерых, оставив только стариков, женщин и маленьких детей.",
 				"en": "You tried to do your part, but it was not enough. There were only a dozen of them, but each one was like an impregnable fortress. Your chief fell in the battle. They killed three and took ten, leaving only the old men, women, and small children."
 			},
 		},

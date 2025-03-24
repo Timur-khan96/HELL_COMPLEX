@@ -1,0 +1,27 @@
+{
+	"results": {"running": false},
+	"char_name": {"ru":"Страж", "en": "Guard"},
+	"events": {
+		"0": {
+			"text": {
+				"ru": "[Удаляясь от площади, вы видите, что за вами следует стражник]",
+				"en": "[As you are moving away from the square you see the guard following you]"
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "[ускориться]",
+						"en": "[speed up]"
+					},
+					"effects": {"change_result": {"running": true}}
+				},
+				{
+					"text": {
+						"ru": "[пусть подойдет]",
+						"en": "[let him approach you]"
+					},
+				}
+			]
+		},
+	}
+}

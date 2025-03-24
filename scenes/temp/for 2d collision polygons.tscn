@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://1j70amhqdrad"]
+
+[ext_resource type="Texture2D" uid="uid://bc5n0el5xbtff" path="res://assets/objects/broom.png" id="1_fxnya"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_fxnya")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(3, -46, -3, -46, -3, 16, -9, 29, -8, 45, 8, 48, 11, 35, 4, 17)

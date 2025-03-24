@@ -1,56 +1,67 @@
 extends Resource
-class_name CharacterStats
+class_name CharStats
 
-@export var stats = {
-	"strength": 1,
-	"dexterity": 1,
-	"intelligence": 1,
-	"endurance": 1,
-	"charisma": 1,
-	"luck": 1,
-	"perception": 1,
-	"speed": 1
+signal skill_changed
+
+enum Stat {
+	STRENGTH, DEXTERITY, INTELLIGENCE, ENDURANCE,
+	CHARISMA, LUCK, PERCEPTION, SPEED
 }
 
-static func new_random(level: int = 5):
-	var result = new()
+@export var strength_damage_multiplier:float = 2.5
+@export var dexterity_to_armor_divider:int = 2
+@export var health_before_endurance:int = 50
+const movement_before_speed = 3.0
+
+@export var stats: Dictionary = {
+	Stat.STRENGTH: 1, Stat.DEXTERITY: 1, Stat.INTELLIGENCE: 1,
+	Stat.ENDURANCE: 1, Stat.CHARISMA: 1, Stat.LUCK: 1,
+	Stat.PERCEPTION: 1, Stat.SPEED: 1
+}
+
+static func new_random(level: int = 5) -> CharStats:
+	var result = CharStats.new()
+	var stat_keys = result.stats.keys()
 	for _i in range(level + 4):
-		result.stats[result.stats.keys().pick_random()] += 1
+		var key = stat_keys.pick_random()
+		result.stats[key] = result.stats.get(key, 0) + 1
 	return result
-
-func _to_string():
-	var t = tr("STRENGTH") + ": " + str(stats.strength) + "\n"
-	t += tr("DEXTERITY") + ": " + str(stats.dexterity) + "\n"
-	t += tr("INTELLIGENCE") + ": " + str(stats.intelligence) + "\n"
-	t += tr("ENDURANCE") + ": " + str(stats.endurance) + "\n"
-	t += tr("CHARISMA") + ": " + str(stats.charisma) + "\n"
-	t += tr("LUCK") + ": " + str(stats.luck) + "\n"
-	t += tr("PERCEPTION") + ": " + str(stats.perception) + "\n"
-	t += tr("SPEED") + ": " + str(stats.speed)
-	return t
 	
-
-func get_default_battle_stats() -> Dictionary:
-	var battle_stats = {}
-	battle_stats["armor"] = stats.dexterity
-	battle_stats["damage"] = 2 + (stats.strength * 2)
-	battle_stats["mana"] = 10 + stats.intelligence * 2
-	battle_stats["attack_cooldown"] = max(12.0 - (stats.speed * 0.2), 2.0)
-	battle_stats["crit_chance"] = clamp(0.05 + (stats.luck * 0.01), 0.01, 0.95)
-	battle_stats["crit_multi"] = 1.5 + (stats.perception * 0.2)
-	return battle_stats
+static func get_stat_enum_value(skill: String) -> int:
+	var stat_map = {
+		"strength": Stat.STRENGTH,
+		"dexterity": Stat.DEXTERITY,
+		"intelligence": Stat.INTELLIGENCE,
+		"endurance": Stat.ENDURANCE,
+		"charisma": Stat.CHARISMA,
+		"luck": Stat.LUCK,
+		"perception": Stat.PERCEPTION,
+		"speed": Stat.SPEED
+	}
+	return stat_map.get(skill.to_lower(), -1)  # Return -1 if not found
 	
-func get_movement_speed(): return 3.0 + stats.speed
+func _to_string() -> String:
+	var text := ""
+	for stat in stats.keys():
+		text += tr(Stat.keys()[stat].to_upper()) + ": " + str(stats[stat]) + "\n"
+	return text.rstrip("\n")
+	
+func get_default_battlestats() -> Dictionary:
+	return {
+		GameManager.BattleStat.ARMOR: get_default_armor(),
+		GameManager.BattleStat.DAMAGE: get_default_damage(),
+		GameManager.BattleStat.MANA: 10 + stats[Stat.INTELLIGENCE] * 2,
+		GameManager.BattleStat.ATTACK_COOLDOWN: max(12.0 - (stats[Stat.SPEED] * 0.2), 2.0),
+		GameManager.BattleStat.CRIT_CHANCE: clamp(0.05 + (stats[Stat.LUCK] * 0.01), 0.01, 0.95),
+		GameManager.BattleStat.CRIT_MULTI: 1.5 + (stats[Stat.PERCEPTION] * 0.2)
+	}
+
+func get_movement_speed(): return movement_before_speed + (0.2 * stats[Stat.SPEED])
 	
 func get_default_health():
-	return 50 + (stats.endurance * 25)
-
-func reset_after_attack(battle_stats: Dictionary) -> void:
-	var default_stats = get_default_battle_stats()
-	battle_stats.damage = default_stats.damage
-	battle_stats.attack_cooldown = default_stats.attack_cooldown
-	battle_stats.crit_chance = default_stats.crit_chance
-	battle_stats.crit_multi = default_stats.crit_multi
-
-func reset_after_hit(battle_stats: Dictionary) -> void:
-	battle_stats.armor = stats.dexterity
+	return health_before_endurance + (stats[Stat.ENDURANCE] * 10)
+	
+func get_default_damage():
+	return 2 + (stats[Stat.STRENGTH] * strength_damage_multiplier)
+	
+func get_default_armor(): return stats[Stat.DEXTERITY] / dexterity_to_armor_divider

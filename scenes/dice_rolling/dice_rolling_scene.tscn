@@ -1,0 +1,138 @@
+[gd_scene load_steps=9 format=3 uid="uid://4exgsul8yuli"]
+
+[ext_resource type="Script" uid="uid://3xgfw18aogeu" path="res://scripts/dice_rolling/dice_rolling_scene.gd" id="1_j36jt"]
+[ext_resource type="Texture2D" uid="uid://dht5ldcprop1c" path="res://assets/UI/round_check_atlas.png" id="2_i1lmc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egit8"]
+atlas = ExtResource("2_i1lmc")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_edo68"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uyal3"]
+size = Vector3(1, 8, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6mlvn"]
+size = Vector3(1, 8, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cah0d"]
+size = Vector3(10, 8, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2edw0"]
+size = Vector3(10, 8, 1)
+
+[node name="dice_rolling_scene" type="Node3D"]
+process_mode = 1
+script = ExtResource("1_j36jt")
+
+[node name="dice" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="main_label" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="upper_circle" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_egit8")
+stretch_mode = 2
+
+[node name="diff_label" type="Label" parent="MarginContainer/VBoxContainer/upper_circle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 32
+
+[node name="lower_circle" type="TextureRect" parent="MarginContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_egit8")
+
+[node name="result_label" type="Label" parent="MarginContainer2/lower_circle"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -35.0
+offset_right = 20.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_edo68")
+
+[node name="walls" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 3, 0)
+shape = SubResource("BoxShape3D_uyal3")
+disabled = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 3, 0)
+shape = SubResource("BoxShape3D_6mlvn")
+disabled = true
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.5)
+shape = SubResource("BoxShape3D_cah0d")
+disabled = true
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
+shape = SubResource("BoxShape3D_2edw0")
+disabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 2.5)

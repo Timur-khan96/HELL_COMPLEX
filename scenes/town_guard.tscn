@@ -1,165 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://dpi1qxbd5x77i"]
+[gd_scene load_steps=8 format=3 uid="uid://dpi1qxbd5x77i"]
 
 [ext_resource type="Script" uid="uid://dcw8aawelm6jd" path="res://scripts/town_guard.gd" id="1_kggx8"]
 [ext_resource type="Texture2D" uid="uid://c53iqpsnv3cr6" path="res://assets/other_characters/guard.png" id="2_ki2a1"]
+[ext_resource type="AnimationLibrary" uid="uid://c0piwn7qndcag" path="res://assets/anim_libs/basic_enemy.res" id="3_8yq20"]
 [ext_resource type="Script" uid="uid://dnbhi25q2agpc" path="res://scripts/state_machine.gd" id="3_e7cqx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_w7won"]
-size = Vector3(1.30769, 1.5613, 0.604411)
+size = Vector3(1.30769, 1.5613, 0.737874)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_shpjg"]
-size = Vector3(2.22531, 1.43512, 1.7229)
-
-[sub_resource type="Animation" id="Animation_6nyap"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D/SubViewport/Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D:billboard")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite3D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_fpg23"]
-resource_name = "attack"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D/SubViewport/Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -1.39626, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_q528u"]
-resource_name = "die"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D:billboard")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [1, 0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite3D/SubViewport/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, 1.5708]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite3D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.5, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-1.5708, 0, 0)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite3D:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.3, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_nskqa"]
-resource_name = "move"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite3D/SubViewport/Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333, 0.75, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.261799, -0.261799, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_1d3th"]
-_data = {
-&"RESET": SubResource("Animation_6nyap"),
-&"attack": SubResource("Animation_fpg23"),
-&"die": SubResource("Animation_q528u"),
-&"move": SubResource("Animation_nskqa")
-}
+size = Vector3(2.22531, 1.58328, 1.7229)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3kyg4"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[node name="guard" type="StaticBody3D" groups=["combatant"]]
+[node name="guard" type="StaticBody3D" groups=["attackable"]]
 script = ExtResource("1_kggx8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.115609, 0.0170494)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.115609, 0.0837811)
 shape = SubResource("BoxShape3D_w7won")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
@@ -169,18 +28,19 @@ script = ExtResource("3_e7cqx")
 [node name="interact_area" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="interact_area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424652, 0.21756, -0.121704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424652, 0.143479, -0.121704)
 shape = SubResource("BoxShape3D_shpjg")
 debug_color = Color(0, 0.6, 0.7, 0.42)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_1d3th")
+&"": ExtResource("3_8yq20")
 }
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 billboard = 1
+shaded = true
 texture_filter = 0
 texture = SubResource("ViewportTexture_3kyg4")
 

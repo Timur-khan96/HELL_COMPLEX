@@ -1,0 +1,213 @@
+[gd_scene load_steps=10 format=3 uid="uid://hst13wbu6ns4"]
+
+[ext_resource type="Script" uid="uid://6yexjie7xqbu" path="res://scripts/battle/battle_grid.gd" id="1_8fs7n"]
+[ext_resource type="Script" uid="uid://cqbpriirwl3c5" path="res://scripts/battle/battle_main.gd" id="1_rrhp7"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_phlcm"]
+load_path = "res://.godot/imported/battle_icons.png-e8430be4cf69ad59e5872378eb894d19.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3nixo"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hckhr"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mghck"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm4oc"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eguxq"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_krd1p"]
+atlas = SubResource("CompressedTexture2D_phlcm")
+region = Rect2(640, 0, 128, 128)
+
+[node name="battle_main" type="Node2D"]
+script = ExtResource("1_rrhp7")
+
+[node name="battle_grid" type="Node2D" parent="."]
+script = ExtResource("1_8fs7n")
+
+[node name="above_grid_UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="above_grid_UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -352.0
+offset_right = 352.0
+offset_bottom = 224.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="above_grid_UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="above_grid_UI/MarginContainer/PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="attack_cd_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_3nixo")
+
+[node name="attack_cd_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/attack_cd_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="damage_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+texture = SubResource("AtlasTexture_hckhr")
+
+[node name="damage_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/damage_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="armor_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_mghck")
+
+[node name="armor_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/armor_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="mana_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_hm4oc")
+
+[node name="mana_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/mana_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="crit_chance_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_eguxq")
+
+[node name="crit_chance_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/crit_chance_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="crit_damage_icon" type="TextureRect" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_krd1p")
+
+[node name="crit_damage_label" type="Label" parent="above_grid_UI/MarginContainer/PanelContainer/HBoxContainer/crit_damage_icon"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -64.5
+offset_right = 68.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="begin_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="player_position" type="Node2D" parent="."]
+position = Vector2(150, 512)
+
+[node name="enemy_position" type="Node2D" parent="."]
+position = Vector2(1700, 512)
+
+[node name="end_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="begin_timer" to="." method="_on_begin_timer_timeout"]
+[connection signal="timeout" from="end_timer" to="." method="_on_end_timer_timeout"]

@@ -1,0 +1,139 @@
+{
+	"results": {"doing_check": false},
+	"char_name": {"ru":"Старый эльф", "en": "Old elf"},
+	"conditions": {"asked_box": false, "asked_veteran": false, "asked_why": false, "tried": false},
+	"events": {
+		"0": {
+			"conditions": {"tried": false},
+			"true_text": {
+				"ru": "Могу ли я одолжить силу твоей юности? Я хочу, чтобы этот сундук был у меня дома, а мой племянник куда-то сбежал.",
+				"en": "Could I lend your youth's strength? I want this chest inside my house, but my nephew ran away somewhere."
+			},
+			"false_text": {
+				"ru": "Хочешь попробовать еще?", "en": "Want to try again?"
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "Зачем мне тогда тебе помогать?",
+						"en": "Why would I help you then?"
+					},
+					"effects": {"change_condition": {"asked_why": true}, "stay": {
+						"ru": "Я полагаю, уже все позади, Мэтр расставил всех на свои места.",
+						"en": "I think it's all over now, the Maitre has put everyone in their place."
+					}},
+					"conditions": {"asked_veteran": true, "asked_why": false}
+				},
+				{
+					"text": { "ru": "Хорошо, давай попробую", "en": "Sure, let me try."},
+					"effects": {"change_result": {"doing_check": true}, "finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Разве ты не видишь, я занят?",
+						"en": "Can't you see, I am busy?"
+					},
+					"effects": {"finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Что мне за это будет?",
+						"en": "What do I get for this?"
+					},
+				},
+				{
+					"text": {
+						"ru": "Ты правда ветеран?",
+						"en": "Are you really a veteran?"
+					},
+					"effects": {"change_condition": {"asked_veteran": true}, "stay": {
+						"ru": "О да, я довольно много где сражался с... ребятами вроде тебя",
+						"en": "Oh yes, I've fought quite extensively with... lads like you."
+					}},
+					"conditions": {"asked_veteran": false}
+				},
+				{
+					"text": {
+						"ru": "Что в коробке?.",
+						"en": "What's in the box?"
+					},
+					"effects": {"change_condition": {"asked_box": true}, "stay": {
+						"ru": "Ничего слишком тяжкого, пожитки старого эльфа, только и всего.",
+						"en": "Nothing too heavy, just old elf belongings."
+					}},
+					"conditions": {"asked_box": false}
+				}
+			]
+		},
+		"1": {
+			"text": {
+				"ru": "Ты пытаешься получить что-то взамен за свою работу? Разве это не противоречит твоему бытию в качестве раба?",
+				"en": "You're trying to get something in return for your work? Isn't it totally contradicting to your being as a slave?"
+			},
+			"choices": [
+				{
+					"text": {"ru":"Хаос правит, старина!", "en":"Chaos rules, old elf!"},
+				},
+				{
+					"text": {"ru":"Я не родился таким, знаешь ли..", "en":"I wasn't born this way, you know.."},
+				},
+				{
+					"text": {"ru":"Я не делаю работу просто так... если меня не заставляют.", "en": "I don't do work for nothing... unless I'm forced to.."},
+					"effects": {"finish_dialogue": true}
+				}
+			]
+		},
+		"2": {
+			"text": {
+				"ru": "Даже если бы у меня было что тебе дать, тебе нельзя ничего иметь, помнишь?",
+				"en": "Even if I had something to give you, you are not allowed to have anything, remember?"
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "Зачем мне тогда тебе помогать?",
+						"en": "Why would I help you then?"
+					},
+					"effects": {"change_condition": {"asked_why": true}, "stay": {
+						"ru": "Я полагаю, уже все позади, Мэтр расставил всех на свои места.",
+						"en": "I think it's all over now, the Maitre has put everyone in their place."
+					}},
+					"conditions": {"asked_veteran": true, "asked_why": false}
+				},
+				{
+					"text": { "ru": "Хорошо, давай попробую", "en": "Sure, let me try."},
+					"effects": {"change_result": {"doing_check": true}, "finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Разве ты не видишь, я занят?",
+						"en": "Can't you see, I am busy?"
+					},
+					"effects": {"finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Ты правда ветеран?",
+						"en": "Are you really a veteran?"
+					},
+					"effects": {"change_condition": {"asked_veteran": true}, "stay": {
+						"ru": "О да, я довольно много где сражался с... ребятами вроде тебя",
+						"en": "Oh yes, I've fought quite extensively with... lads like you."
+					}},
+					"conditions": {"asked_veteran": false}
+				},
+				{
+					"text": {
+						"ru": "Что в коробке?.",
+						"en": "What's in the box?"
+					},
+					"effects": {"change_condition": {"asked_box": true}, "stay": {
+						"ru": "Ничего слишком тяжкого, пожитки старого эльфа, только и всего.",
+						"en": "Nothing too heavy, just old elf belongings."
+					}},
+					"conditions": {"asked_box": false}
+				}
+			]
+		}
+	}
+}

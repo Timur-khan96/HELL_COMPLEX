@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtoiftw67sm3j" path="res://scripts/interactable/interactable_object.gd" id="1_u53n4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5ehc1"]
+resource_local_to_scene = true
 size = Vector3(0.711441, 0.856873, 0.660569)
 
 [node name="interactable" type="Area3D"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcbwl5g4x45im"]
+
+[ext_resource type="Texture2D" uid="uid://db1twajnljopq" path="res://assets/misc/circle.png" id="1_iwa52"]
+
+[node name="attack_cooldown_bar" type="TextureProgressBar"]
+step = 0.01
+fill_mode = 4
+texture_under = ExtResource("1_iwa52")
+texture_progress = ExtResource("1_iwa52")
+tint_progress = Color(1, 0.466667, 0, 1)

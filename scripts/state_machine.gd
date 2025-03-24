@@ -1,9 +1,10 @@
 extends Node
 
-var current_state: GameManager.CharStates = GameManager.CharStates.IDLE
+var current_state: GameManager.CharStates = GameManager.CharStates.IDLE:
+	set = change_state
 var chase_target = null
 
-@onready var parent = get_parent()  # Assumes it's on the character
+@onready var parent = get_parent()
 @onready var navigation_agent: NavigationAgent3D = $"../NavigationAgent3D"
 
 func _process(_delta):
@@ -17,8 +18,7 @@ func change_state(new_state: GameManager.CharStates):
 	current_state = new_state
 
 func move_to(target: Vector3):
-	if current_state == GameManager.CharStates.DEAD: return
-	if current_state == GameManager.CharStates.BUSY: return
+	if current_state != GameManager.CharStates.IDLE: return
 	change_state(GameManager.CharStates.MOVING)
 	navigation_agent.set_target_position(target)
 	

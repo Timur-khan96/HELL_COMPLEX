@@ -1,0 +1,91 @@
+{
+	"char_name": {"ru":"Эльфийка", "en": "Elf girl"},
+	"events": {
+		"0": {
+			"text": {
+				"ru": "Привет.",
+				"en": "Hey."
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "Привет.",
+						"en": "Hey."
+					},
+				},
+				{
+					"text": {
+						"ru": "Ты особо не мусоришь, спасибо.",
+						"en": "You don't litter much, thank you."
+					},
+					"effects": {"jump": "3"}
+				}
+			]
+		},
+		"1": {
+			"text": {
+				"ru": "Хотел чего?",
+				"en": "Wanted something?"
+			},
+			"choices": [
+				{
+					"text": {"ru":"Спасибо, что не мусоришь.", "en":"Thank you for not littering."},
+					"effects": {"jump": "3"}
+				},
+				{
+					"text": {"ru":"Пригласить тебя на свидание.", "en":"To invite you on a date."},
+					"effects": {"change_result": {"running": true}}
+				},
+				{
+					"text": {"ru":"Да нет.", "en": "Nope."},
+					"effects": {"finish_dialogue": true}
+				}
+			]
+		},
+		"2": {
+			"text": {
+				"ru": "Боюсь твои цепные псы нам не позволят.",
+				"en": "I'm afraid your watchdogs won't let us."
+			},
+			"choices": [
+				{
+					"text": {"ru":"Ты права, может быть в другой жизни", "en": "You're right, maybe in another life"},
+					"effects": {"finish_dialogue": true}
+				}
+			]
+		},
+		"3": {
+			"text": {
+				"ru": "Да, я больше по сортировке.",
+				"en": "Yeah, I'm more into sorting, you know."
+			},
+			"choices": [
+				{
+					"text": {"ru":"Чего?", "en":"What?"},
+				},
+				{
+					"text": {"ru":"Понял.", "en":"Got it."},
+					"effects": {"finish_dialogue": true}
+				},
+
+			]
+		},
+		"4": {
+			"text": {
+				"ru": "Сортировке",
+				"en": "Sorting"
+			},
+			"choices": [
+				{
+					"text": {"ru":"Чего?", "en":"What?"},
+					"effects": {"jump": "4"}
+					
+				},
+				{
+					"text": {"ru":"Понял.", "en":"Got it."},
+					"effects": {"finish_dialogue": true}
+				},
+			]
+		},
+	}
+}

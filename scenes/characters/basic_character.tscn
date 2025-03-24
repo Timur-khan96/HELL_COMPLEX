@@ -1,0 +1,144 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn677ixw1qjsf"]
+
+[ext_resource type="Script" uid="uid://dt0ia5rh3gyjl" path="res://scripts/characters/basic_character.gd" id="1_hbavc"]
+[ext_resource type="Script" uid="uid://dnbhi25q2agpc" path="res://scripts/state_machine.gd" id="2_1etmu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5ehc1"]
+resource_local_to_scene = true
+size = Vector3(1.14752, 1.14513, 1.12448)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b3taq"]
+radius = 0.285076
+height = 1.16786
+
+[sub_resource type="Animation" id="Animation_4njt6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:billboard")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jjgpp"]
+resource_name = "disappear"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D:billboard")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -1.5708, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.282777, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wfv7x"]
+_data = {
+&"RESET": SubResource("Animation_4njt6"),
+&"disappear": SubResource("Animation_jjgpp")
+}
+
+[node name="basic_character" type="StaticBody3D"]
+collision_mask = 3
+script = ExtResource("1_hbavc")
+
+[node name="interact_area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interact_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0217793, 0.144127, -0.0657616)
+shape = SubResource("BoxShape3D_5ehc1")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+billboard = 1
+shaded = true
+texture_filter = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_b3taq")
+
+[node name="speech" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.812711, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+autowrap_mode = 3
+width = 350.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wfv7x")
+}
+
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("2_1etmu")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.347852, -0.508301, -0.322461, 0.6, 1, 0.6)

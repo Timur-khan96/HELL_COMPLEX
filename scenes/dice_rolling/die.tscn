@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://q0anbxm6m67p"]
+
+[ext_resource type="Script" uid="uid://bfmc0rcgt8d4o" path="res://scripts/dice_rolling/die.gd" id="1_acrfr"]
+[ext_resource type="Script" uid="uid://dj1fgljetvlb2" path="res://scripts/dice_rolling/die_ray.gd" id="2_44kdk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_44kdk"]
+size = Vector3(0.25, 0.25, 0.25)
+
+[node name="die" type="RigidBody3D"]
+collision_mask = 3
+freeze = true
+script = ExtResource("1_acrfr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_44kdk")
+
+[node name="raycasts" type="Node3D" parent="."]
+
+[node name="ray_1" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+target_position = Vector3(0, 0.1, 0)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 6
+
+[node name="ray_2" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+target_position = Vector3(0, -0.1, 0)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 1
+
+[node name="ray_3" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0, 0)
+target_position = Vector3(0.1, 0, 0)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 5
+
+[node name="ray_4" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.125, 0, 0)
+target_position = Vector3(-0.1, 0, 0)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 4
+
+[node name="ray_5" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.125)
+target_position = Vector3(0, 0, 0.1)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 2
+
+[node name="ray_6" type="RayCast3D" parent="raycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.125)
+target_position = Vector3(0, 0, -0.1)
+collision_mask = 3
+hit_from_inside = true
+script = ExtResource("2_44kdk")
+opposite_side = 3
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]

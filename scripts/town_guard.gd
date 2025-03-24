@@ -1,11 +1,11 @@
 extends StaticBody3D
+class_name Combatant
 
 signal target_reached
 
-var stats: CharacterStats
+var stats: CharStats
 @export var obj_name = "Guard"
 @export var level: int = 5
-@export var is_combatant: bool = true
 
 @onready var health_bar = %health_bar
 @onready var speech = $speech
@@ -17,8 +17,13 @@ var stats: CharacterStats
 var health
 var movement_speed
 
+var current_state: 
+	get: return state_machine.current_state
+	set(value):
+		state_machine.current_state = value
+
 func _ready():
-	stats = CharacterStats.new_random(level)
+	stats = CharStats.new_random(level)
 	health = stats.get_default_health()
 	health_bar.max_value = health
 	health_bar.value = health
@@ -29,14 +34,13 @@ func _physics_process(delta):
 		if NavigationServer3D.map_get_iteration_id(nav_agent.get_navigation_map()) == 0:
 			return
 		if nav_agent.is_navigation_finished():
-			target_reached.emit()
 			state_machine.change_state(GameManager.CharStates.IDLE)
 			stop_anim("move")
+			target_reached.emit()
 			return
 		var next_point = nav_agent.get_next_path_position()
 		var movement_delta = movement_speed * delta
-		var velocity = global_position.direction_to(next_point) * movement_delta
-		global_position = global_position.move_toward(global_position + velocity, movement_delta)
+		global_position = global_position.move_toward(next_point, movement_delta)
 		play_anim("move")
 		
 func say(text: String, lifetime: float = 3.0):
@@ -67,11 +71,12 @@ func hit(damage):
 	health -= damage
 	if health <= 0:
 		health = 0;
-		die()
+		if GameManager.game_state != GameManager.GameStates.BATTLE:
+			die() #in case death blow is outside of the battle
 	
 func die():
 	play_anim("die")
-	remove_from_group("combatant")
+	remove_from_group("attackable")
 	add_to_group("lootable")
 	state_machine.change_state(GameManager.CharStates.DEAD)
 	$CollisionShape3D.disabled = true

@@ -1,0 +1,104 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwamqtd5mi62c"]
+
+[ext_resource type="Script" uid="uid://bc7o1etrqwct8" path="res://scripts/characters/basic_combatant.gd" id="1_ljb7e"]
+[ext_resource type="Script" uid="uid://dnbhi25q2agpc" path="res://scripts/state_machine.gd" id="2_obdw4"]
+[ext_resource type="AnimationLibrary" uid="uid://c0piwn7qndcag" path="res://assets/anim_libs/basic_enemy.res" id="3_kuai8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ig6to"]
+height = 1.5
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_shpjg"]
+size = Vector3(2.22531, 1.58328, 1.7229)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ig6to"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="basic_combatant" type="StaticBody3D"]
+collision_mask = 3
+script = ExtResource("1_ljb7e")
+movement_speed = 3.4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.084)
+shape = SubResource("CapsuleShape3D_ig6to")
+
+[node name="state_machine" type="Node" parent="."]
+script = ExtResource("2_obdw4")
+
+[node name="interact_area" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="interact_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0424652, 0.143479, -0.121704)
+shape = SubResource("BoxShape3D_shpjg")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": ExtResource("3_kuai8")
+}
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+billboard = 1
+shaded = true
+texture_filter = 0
+texture = SubResource("ViewportTexture_ig6to")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+transparent_bg = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(297, 362)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(148, 181)
+
+[node name="health_bar" type="ProgressBar" parent="Sprite3D/SubViewport"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(256, 32)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -148.5
+offset_right = 107.5
+offset_bottom = 32.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+max_value = 75.0
+step = 1.0
+value = 75.0
+show_percentage = false
+
+[node name="speech" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.955828, 0.814, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+autowrap_mode = 3
+width = 300.0
+
+[node name="damage_pop" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.427246, 0.415023, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+texture_filter = 0
+render_priority = 1
+outline_render_priority = 0
+font_size = 48
+outline_size = 16
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="attack_timer" type="Timer" parent="."]
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-0.347852, -0.508301, -0.322461, 0.6, 1, 0.6)
+
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
