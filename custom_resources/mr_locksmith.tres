@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://6ayg7ou6g8ns"]
+
+[ext_resource type="Script" uid="uid://bae0rccih5v21" path="res://custom_resources/templates/character_data.gd" id="1_h5osl"]
+[ext_resource type="Texture2D" uid="uid://d255oahqb4sf5" path="res://assets/other_characters/locksmith.png" id="2_gqpk4"]
+
+[resource]
+script = ExtResource("1_h5osl")
+obj_name = "Mr. Locksmith"
+attack_reaction = "LOCKSMITH_HIT_REACTION"
+movement_speed = 4.0
+texture = ExtResource("2_gqpk4")
+metadata/_custom_type_script = "uid://bae0rccih5v21"

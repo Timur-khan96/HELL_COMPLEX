@@ -9,9 +9,8 @@ var current_state: GameManager.CharStates = GameManager.CharStates.IDLE:
 		if current_state == value: return
 		current_state = value
 		if value != GameManager.CharStates.MOVING: stop_anim("move")
-		if value == GameManager.CharStates.DIALOGUE: action_info.hide()
-		elif value == GameManager.CharStates.BATTLE: action_info.hide()
-		else: action_info.show()
+		if value == GameManager.CharStates.IDLE: action_info.show()
+		else: action_info.hide()
 
 @onready var anim_tree = $AnimationTree
 @onready var equipped_1 = %sprite_skeleton.get_node("sprites/left_hand/equipped_1")
@@ -128,8 +127,6 @@ func attack():
 	if randf() <= battle_stats[GameManager.BattleStat.CRIT_CHANCE]:
 		d *= battle_stats[GameManager.BattleStat.CRIT_MULTI]
 	attacked.emit(attack_object, d)
-	if GameManager.game_state == GameManager.GameStates.BATTLE:
-		reset_battlestats_after_attack()
 			
 func hit(damage):
 	damage = max(damage - get_armor(), 0)
@@ -153,7 +150,9 @@ func hit(damage):
 	if GameManager.game_state == GameManager.GameStates.BATTLE:
 		battle_stats[GameManager.BattleStat.ARMOR] = get_armor()
 		
-func die(): play_anim("die")
+func die(): 
+	play_anim("die")
+	current_state = GameManager.CharStates.DEAD
 	
 func show_damage(damage):
 	damage_pop.show()

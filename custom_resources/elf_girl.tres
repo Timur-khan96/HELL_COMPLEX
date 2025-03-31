@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterData" load_steps=3 format=3 uid="uid://c2vdrb6pu6w61"]
+
+[ext_resource type="Script" uid="uid://bae0rccih5v21" path="res://custom_resources/templates/character_data.gd" id="1_15blf"]
+[ext_resource type="Texture2D" uid="uid://bww1mg642mg7f" path="res://assets/other_characters/leaning_woman.png" id="2_ik8wr"]
+
+[resource]
+script = ExtResource("1_15blf")
+obj_name = "Elf girl"
+attack_reaction = "ELF_GIRL_FIGHT_REACT"
+movement_speed = 4.0
+texture = ExtResource("2_ik8wr")
+metadata/_custom_type_script = "uid://bae0rccih5v21"

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn35n2g5b5hio"]
+
+[ext_resource type="Script" uid="uid://53p7pxbfibs7" path="res://puzzle_grid.gd" id="1_nef7l"]
+
+[node name="puzzle_grid" type="Node2D"]
+script = ExtResource("1_nef7l")

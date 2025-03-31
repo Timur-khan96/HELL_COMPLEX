@@ -1,0 +1,105 @@
+{
+	"results": {"rolling_dexterity": false, "rolling_charisma": false},
+	"char_name": {"ru":"Эльфийка", "en": "Elven girl"},
+	"conditions": {"asked_why_help": false},
+	"events": {
+		"0": {
+			"text": {
+				"ru": "Смотри, видишь того джентльэльфа, разговаривающего с твоим надзирателем? Это Алиф Чар Хоббейс, изобретатель отмычки, собственной персоной",
+				"en": "Look over there, see that gentle-elf talking with your warden? This is Alief Char Hobbeis, an inventor of a lockpick, visiting us in person."
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "Прошу прощения, нам не следует разговаривать",
+						"en": "Sorry, we're not supposed to talk."
+					},
+					"effects": {"finish_dialogue": true},
+				},
+				{
+					"text": {
+						"ru": "Изобретатель чего?",
+						"en": "An inventor of what?"
+					},
+				}
+			]
+		},
+		"1": {
+			"text": {
+				"ru": "Он может открыть почти любой замок без ключа, и я заметил, что они заставляют вас время от времени носить странные аксессуары с замками. Я подумала, что тебе пригодится такое.",
+				"en": "It can open almost any lock without a key, and I noticed they make you wear weird accessories with locks every now and then. Thought you might want it."
+			},
+			"choices": [
+				{
+					"text": {"ru":"И что мне попросить его дать мне ее?", "en":"So do I ask him for one?"},
+				},
+				{
+					"text": {"ru":"Что ты задумала?", "en":"What do you suggest?"},
+				},
+				{
+					"text": {"ru":"Я привык к ним, они не так уж плохи.", "en": "I got used to them, they are not that bad"},
+					"effects": {"finish_dialogue": true}
+				}
+			]
+		},
+		"2": {
+			"conditions": {"asked_why_help": false},
+			"true_text": {
+				"ru": "У него на поясе есть один. Я могу отвлечь их или даже сама это сделать, если ты их отвлечешь. Так или иначе, нам нужно работать вместе.",
+				"en": "He has one on his belt. I can distract them or even do it myself if you distract them. One way or another, we need to work together."
+			},
+			"false_text": {
+				"ru": "Я всего лишь считаю, что каждое живое существо заслуживает отношения получше, только и всего.",
+				"en": "I just think that every living being deserves to be treated better than this, that's all."
+			},
+			"choices": [
+				{
+					"conditions": {"asked_why_help": false},
+					"text": {
+						"ru": "Зачем тебе помогать мне?",
+						"en": "Why would you help me?"
+					},
+					"effects": {"change_condition": {"asked_why_help": true}}
+				},
+				{
+					"text": { "ru": "Мне следует доложить о тебе.", "en": "I should report you."},
+					"effects": {"finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Давай попробуем. Я их отвлеку.",
+						"en": "Let's try. I will distract them."
+					},
+					"effects": {"change_result": {"rolling_charisma": true}, "finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "Давай попробуем. Ты отвлекаешь, а я стащу.",
+						"en": "Let's try. You distract, and I'll steal."
+					},
+					"effects": {"change_result": {"rolling_dexterity": true}, "finish_dialogue": true},
+				},
+			]
+		},
+		"2": {
+			"text": {
+				"ru": "А почему ты раб?",
+				"en": "Why are you slave?"
+			},
+			"choices": [
+				{
+					"text": {"ru":"Невежливо отвечать вопросом на вопрос.", "en":"It's rude to answer a question with a question."},
+					"effects": {"jump": "1"}
+				},
+				{
+					"text": {"ru":"Ты борешься с несправедливостью?", "en":"Are you fighting injustice?"},
+					"effects": {"jump": "1"}
+				},
+				{
+					"text": {"ru":"Такова моя природа, прости.", "en": "That's my nature, I'm sorry."},
+					"effects": {"finish_dialogue": true}
+				}
+			]
+		},
+	}
+}

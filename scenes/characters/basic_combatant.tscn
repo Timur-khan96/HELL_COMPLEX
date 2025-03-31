@@ -16,7 +16,6 @@ viewport_path = NodePath("Sprite3D/SubViewport")
 [node name="basic_combatant" type="StaticBody3D"]
 collision_mask = 3
 script = ExtResource("1_ljb7e")
-movement_speed = 3.4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 process_mode = 1

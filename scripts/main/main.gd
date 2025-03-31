@@ -1,5 +1,6 @@
 extends Node3D
 const text_scene = preload("res://scenes/main/text_scene.tscn")
+const battle_encounter = preload("res://scenes/encounter_scene.tscn")
 
 @onready var menu = $main_menu
 @onready var battle_handler = $battle_handler
@@ -11,8 +12,8 @@ func start_game():
 	GameManager.player_stats = CharStats.new()
 	GameManager.battle_started.connect(_on_battle_started)
 	GameManager.debug_label = %debug_label
-	#init_visual_scene("town_square_scene")
-	init_text_scene("intro")
+	init_visual_scene("town_square_scene")
+	#init_text_scene("intro")
 	
 #func set_ambush_dic():
 	#return {
@@ -36,6 +37,13 @@ func init_visual_scene(scene_name: String):
 	s.dice_contested.connect(dice_handler.init_dice_contested)
 	current_scene = s
 	
+func init_battle_encounter(enemy: CombatantData):
+	var s = battle_encounter.instantiate()
+	s.get_node("basic_combatant").character_data = enemy
+	add_child(s)
+	current_scene = s
+	GameManager.init_battle(s.get_node("player"), s.get_node("basic_combatant"))
+	
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		get_tree().paused = true
@@ -47,10 +55,21 @@ func _on_text_scene_finished(scene_name: String):
 	match scene_name:
 		"intro": init_visual_scene("town_square_scene")
 		
-func _on_visual_scene_finished(scene_name: String, _scene_states: Dictionary):
+func _on_visual_scene_finished(scene_name: String, scene_states: Dictionary):
 	if current_scene != null: current_scene.queue_free()
 	match scene_name:
-		"town_square_scene": init_text_scene("slavemasters_guild")
+		"town_square_scene":
+			#TO DO: CHASING SCENE???
+			if scene_states.get("player_left_early_and_started_battle"):
+				init_battle_encounter(load("res://custom_resources/guard.tres"))
+			elif scene_states.get("player_left_ontime"):
+				init_text_scene("escaping_town_square")
+			elif scene_states.get("player_started_fight_and_submitted"):
+				print("You are getting to prison and then to arena")
+			elif scene_states.get("player_died"):
+				print("You are going straight to heeeeeeeell")
+			else:
+				init_text_scene("slavemasters_guild")
 			
 func _on_battle_started(player, enemy):
 	battle_handler._on_battle_started(player, enemy, current_scene.get_node("Camera3D"))

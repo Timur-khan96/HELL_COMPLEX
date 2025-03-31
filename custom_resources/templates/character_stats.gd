@@ -10,7 +10,7 @@ enum Stat {
 
 @export var strength_damage_multiplier:float = 2.5
 @export var dexterity_to_armor_divider:int = 2
-@export var health_before_endurance:int = 50
+@export var health_before_endurance:int = 20
 const movement_before_speed = 3.0
 
 @export var stats: Dictionary = {

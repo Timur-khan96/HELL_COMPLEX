@@ -9,9 +9,12 @@ signal dead
 @onready var attack_timer = $attack_timer
 @onready var animation_player = $AnimationPlayer
 
-@export var level: int = 5
-@export var player_battle_threat: String #reaction to battle init from player
-var stats: CharStats
+var level: int:
+	get: return character_data.level
+var player_battle_threat: String:
+	get: return character_data.player_battle_threat
+var stats: CharStats:
+	get: return character_data.stats
 var battle_stats
 var health
 
@@ -19,11 +22,12 @@ func set_character_texture(value):
 	texture = value
 	var sprite = get_node_or_null("Sprite3D/SubViewport/Sprite2D")
 	if sprite: sprite.texture = value
+	else: print("Failed to set texture for " + character_data.obj_name)
 
 func _ready():
 	super._ready()
 	animation_player.animation_finished.connect(_on_animation_finished)
-	stats = CharStats.new_random(level)
+	if character_data.stats == null: character_data.stats = CharStats.new_random(level)
 	battle_stats = get_default_battlestats()
 	stats.skill_changed.connect(get_default_battlestats)
 	health = stats.get_default_health()
@@ -33,9 +37,8 @@ func _ready():
 	
 func attack(): 
 	play_anim("attack")
-	if GameManager.game_state == GameManager.GameStates.BATTLE:
-		attack_timer.start(battle_stats[GameManager.BattleStat.ATTACK_COOLDOWN])
-		reset_battlestats_after_attack() #this one is not necessary right now
+	reset_battlestats_after_attack()
+	attack_timer.start(battle_stats[GameManager.BattleStat.ATTACK_COOLDOWN])
 					
 func _on_animation_finished(anim_name):
 	if anim_name == "attack":
@@ -99,6 +102,11 @@ func reset_battlestats_after_attack():
 	battle_stats[GameManager.BattleStat.ATTACK_COOLDOWN] = default_stats[GameManager.BattleStat.ATTACK_COOLDOWN]
 	battle_stats[GameManager.BattleStat.CRIT_CHANCE] = default_stats[GameManager.BattleStat.CRIT_CHANCE]
 	battle_stats[GameManager.BattleStat.CRIT_MULTI] = default_stats[GameManager.BattleStat.CRIT_MULTI]
+
+func update_attack_timer(value: float):
+	var new_time = attack_timer.time_left - value
+	if new_time <= 0: attack_timer.timeout.emit()
+	else: attack_timer.start(new_time)
 
 func _on_attack_timer_timeout():
 	if GameManager.game_state == GameManager.GameStates.BATTLE:

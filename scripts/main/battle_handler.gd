@@ -72,7 +72,7 @@ func _get_colliding_objects(character):
 	var query = PhysicsShapeQueryParameters3D.new()
 	query.shape = character.get_node("CollisionShape3D").shape
 	query.transform = character.global_transform
-	#query.collision_mask = 1 Adjust this to match houses' collision layer
+	#query.collision_mask = 1
 
 	var results = space_state.intersect_shape(query, 10)
 	var colliders = []
@@ -81,7 +81,7 @@ func _get_colliding_objects(character):
 	
 	return colliders
 		
-func _on_battle_finished(player_scene, enemy_scene):
+func _on_battle_finished(player_scene, enemy_scene, _has_player_won):
 	var player_sprite = player_scene.get_node("Sprite3D")
 	player_sprite.no_depth_test = false
 	player_sprite.render_priority = 0
@@ -104,5 +104,4 @@ func _on_battle_finished(player_scene, enemy_scene):
 	
 func _initial_position_reached(battler):
 	battler.stop_anim("move")
-	if battler.health <= 0: battler.die()
-	elif battler is Player: battler.stop_anim("fight_begin")
+	battler.stop_anim("fight_begin")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://oi288nludisc"]
 
-[ext_resource type="Script" uid="uid://dmy2q31jn8n6h" path="res://custom_resources/item.gd" id="1_blx40"]
+[ext_resource type="Script" uid="uid://dmy2q31jn8n6h" path="res://custom_resources/templates/item.gd" id="1_blx40"]
 [ext_resource type="Texture2D" uid="uid://bc5n0el5xbtff" path="res://assets/objects/broom.png" id="2_1bg34"]
 
 [resource]

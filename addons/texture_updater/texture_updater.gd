@@ -11,15 +11,15 @@ func _process(_delta):
 		_apply_textures(scene_root)
 		
 func _apply_textures(node):
-	if node is BasicCharacter and node.texture:
+	if node is BasicCharacter and node.character_data and node.character_data.texture:
 		var sprite
 		if node is BasicCombatant:
 			sprite = node.get_node_or_null("Sprite3D/SubViewport/Sprite2D")
 		else:
 			sprite = node.get_node_or_null("Sprite3D")
 			
-		if sprite and sprite.texture != node.texture:
-			sprite.texture = node.texture
+		if sprite and sprite.texture != node.character_data.texture:
+			sprite.texture = node.character_data.texture
 			print("Updated texture for:", node.name)
 	elif node is Equipable and node.resource:
 		var sprite = node.get_node_or_null("Sprite3D")

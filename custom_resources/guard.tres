@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CombatantData" load_steps=4 format=3 uid="uid://bkhwkn88w3w6f"]
+
+[ext_resource type="Script" uid="uid://bwnnmxqk7hj7h" path="res://custom_resources/templates/combatant_data.gd" id="1_84uwo"]
+[ext_resource type="Texture2D" uid="uid://c53iqpsnv3cr6" path="res://assets/other_characters/guard.png" id="2_6kkty"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6kkty"]
+atlas = ExtResource("2_6kkty")
+region = Rect2(0, 0, 297, 0)
+
+[resource]
+script = ExtResource("1_84uwo")
+level = 5
+player_battle_threat = "PLAYER_GUARD_THREAT"
+is_swapping = true
+obj_name = "Guard"
+attack_reaction = "GUARD_THREAT"
+movement_speed = 4.0
+texture = SubResource("AtlasTexture_6kkty")
+metadata/_custom_type_script = "uid://bwnnmxqk7hj7h"

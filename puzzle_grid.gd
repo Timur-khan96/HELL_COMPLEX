@@ -1,25 +1,17 @@
-extends Control
+extends Node2D
 
-signal got_matches(match_data: Dictionary)
-signal turn_made
-#signal grid_idle
+signal no_turns
 
-#this two come from battle_main
-var current_player = null #this one also nullified here
-
-enum GRID_TYPES {BATTLE, LOCKPICKING, CHASE, ALCHEMY}
-var grid_type: GRID_TYPES = GRID_TYPES.BATTLE
-
-const CELL_SIZE = 90
-
-var sprite_sheet = load("res://assets/textures/puzzle_textures.png")
 var explosion = load("res://scenes/effects/stone_explosion.tscn")
 
 const GRID_ROWS = 8
 const GRID_COLS = 8
-const STONE_TYPES = ["red", "blue", "green", "yellow", "orange", "purple"]
+const CELL_SIZE = 90
+const STONE_TYPES = ["player", "enemy", "red", "blue", "green", "yellow", "orange", "purple"]
 enum BONUS_TYPES {NONE, HORIZONTAL, VERTICAL}
-var COLOR_CODES = [Color.from_rgba8(201,0,0).linear_to_srgb(),
+var COLOR_CODES = [Color.from_rgba8(0,0,0).linear_to_srgb(),
+					Color.from_rgba8(0,0,0).linear_to_srgb(),
+					Color.from_rgba8(201,0,0).linear_to_srgb(),
 					Color.from_rgba8(0,34,229).linear_to_srgb(), 
 					Color.from_rgba8(39,132,0).linear_to_srgb(), 
 					Color.from_rgba8(246,255,0).linear_to_srgb(), 
@@ -39,42 +31,64 @@ var last_swapped = []
 
 var bg_alpha = 0.0
 
-#THIS ONE CURRENTLY CROPS ONLY WITH BATTLE ICONS
-func set_textures():
-	var i = 0;
-	for type in STONE_TYPES:
-		textures[type] = crop_texture(Rect2(i * 90, 90, 90, 90))
-		row_bonus_textures[type] = crop_texture(Rect2(i * 90, 180, 90, 90))
-		col_bonus_textures[type] = crop_texture(Rect2(i * 90, 270, 90, 90))
-		i += 1
-		
-func crop_texture(rect: Rect2):
-	var t = AtlasTexture.new()
-	t.atlas = sprite_sheet
-	t.region = rect
-	return t
-
 func _ready():
-	set_textures()
+	var sprite_sheet = load("res://assets/textures/puzzle_textures.png")
+	var line_bonus = preload("res://assets/textures/line_bonus_small.png")
+	var sprite_size = Vector2i(90, 90)
+	
+	var i = 0
+	for type in STONE_TYPES:
+		var atlas_tex = AtlasTexture.new()
+		atlas_tex.atlas = sprite_sheet
+		atlas_tex.region = Rect2i(i * sprite_size.x, 0, sprite_size.x, sprite_size.y)
+		textures[type] = atlas_tex
+		i += 1
+		if i > 1:
+			row_bonus_textures[type] = create_colored_texture(line_bonus, COLOR_CODES[STONE_TYPES.find(type)])
+			col_bonus_textures[type] = create_colored_texture(line_bonus, COLOR_CODES[STONE_TYPES.find(type)], true)
+	
+func init_puzzle(puzzle_grid):
 	for row in range(GRID_ROWS):
 		var row_data = []
 		for col in range(GRID_COLS):
+			var new_type
+			if puzzle_grid[row][col].type == "random":
+				new_type = STONE_TYPES[randi_range(2, 7)]
+			else:
+				new_type = puzzle_grid[row][col].type
+				
 			row_data.append({
-				"type": "",
+				"type": new_type,
 				"bonus_type": BONUS_TYPES.NONE,
 				"grid_pos": Vector2i(col, row),
 				"sprite_pos": Vector2(col, row) * CELL_SIZE,
-				"is_moving": true,
+				"is_moving": false,
 			})
 		grid.append(row_data)
 		
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "bg_alpha", 0.8, 1.5) 
 	#tween.tween_callback(_on_fade_complete)
+	
+func create_colored_texture(original_texture: Texture2D, base_color: Color, rotating: bool = false) -> ImageTexture:
+	var image = original_texture.get_image()
+	var darkened_color = base_color.darkened(darkened_factor)
+	for x in range(image.get_width()):
+		for y in range(image.get_height()):
+			var tex_color = image.get_pixel(x, y)
+			if tex_color.a < 0.1: continue
+		
+			if tex_color.r > 0.5 and tex_color.g > 0.5 and tex_color.b > 0.5:
+				image.set_pixel(x, y, base_color)
+			else:
+				image.set_pixel(x, y, darkened_color)
+	if rotating: image.rotate_90(CLOCKWISE)
+	return ImageTexture.create_from_image(image)
 
 func _draw():
 	draw_rect(Rect2(Vector2.ZERO, Vector2(GRID_COLS * CELL_SIZE, GRID_ROWS * CELL_SIZE)), Color(0.3,
 	0.3, 0.3, bg_alpha))
+	var tex_scale = 1
 	for row in range(GRID_ROWS):
 		for col in range(GRID_COLS):
 			var cell = grid[row][col]
@@ -82,7 +96,8 @@ func _draw():
 			0, 0, bg_alpha), false, 2)
 			if cell.type:
 				var t = get_texture_by_bonus(cell.type, cell.bonus_type)
-				draw_texture_rect(t, Rect2(cell.sprite_pos, t.get_size()), false)
+				var size = t.get_size() * tex_scale
+				draw_texture_rect(t, Rect2(cell.sprite_pos, size), false)
 	if selected_vec != null:
 		var p = Vector2(selected_vec.x, selected_vec.y) * CELL_SIZE
 		draw_rect(Rect2(p, Vector2(CELL_SIZE,CELL_SIZE)), Color.YELLOW, false, 2)
@@ -97,123 +112,36 @@ func get_texture_by_bonus(cell_type: String, bonus_type: BONUS_TYPES):
 		BONUS_TYPES.VERTICAL: return col_bonus_textures[cell_type]
 				
 func _process(delta):
-	if is_grid_idle():
-		var were_matches = check_matches()
-		if !were_matches and !has_player_made_turn and current_player != null:
-			if !current_player is Player: 
-				ai_turn()
-				return
-		
-		if has_player_made_turn and !last_swapped.is_empty():
-			if were_matches: last_swapped.clear()
-			else: 
-				swap_stones(last_swapped[0], last_swapped[1])
-				last_swapped.clear()
-				
-		if has_player_made_turn and were_matches: return
-		if has_player_made_turn:
-			turn_made.emit()
-			#current_player = null
-			has_player_made_turn = false
+	if (is_grid_idle()):
+		if !are_there_turns(): 
+			no_turns.emit()
+			queue_free()
+		if !check_matches() and has_player_made_turn:
+			swap_stones(last_swapped[0], last_swapped[1])
+		last_swapped.clear()
+		has_player_made_turn = false
 	else:
 		move_stones(delta)
 		queue_redraw()
 	apply_gravity()
 	
-func ai_turn():
-	var stones_to_turn = []
+func are_there_turns():
 	for row in GRID_ROWS:
-		if !stones_to_turn.is_empty(): break
 		for col in GRID_COLS:
 			var curr_type = grid[row][col].type
-			#check adjacent cells:
-			var is_top_same = row - 1 >= 0 and curr_type == grid[row-1][col].type
-			var is_bottom_same = row + 1 < GRID_ROWS and curr_type == grid[row+1][col].type
-			var is_left_same = col - 1 >= 0 and curr_type == grid[row][col-1].type
-			var is_right_same = col + 1 < GRID_COLS and curr_type == grid[row][col+1].type
-			
-			if is_top_same:
-				if row - 3 >= 0 and curr_type == grid[row-3][col].type:
-					stones_to_turn = [grid[row-2][col], grid[row-3][col]]
-					break
-				elif row - 2 >= 0:
-					if col - 1 >= 0 and curr_type == grid[row-2][col-1].type:
-						stones_to_turn = [grid[row-2][col], grid[row-2][col-1]]
-						break
-					if col + 1 < GRID_COLS and curr_type == grid[row-2][col+1].type:
-						stones_to_turn = [grid[row-2][col], grid[row-2][col+1]]
-						break
-			elif row - 2 >= 0 and curr_type == grid[row-2][col].type:
-				if col - 1 >= 0 and curr_type == grid[row-1][col-1].type:
-					stones_to_turn = [grid[row-1][col], grid[row-1][col-1]]
-					break
-				if col + 1 < GRID_COLS and curr_type == grid[row-1][col+1].type:
-					stones_to_turn = [grid[row-1][col], grid[row-1][col+1]]
-					break
-					
-			if is_bottom_same:
-				if row + 3 < GRID_ROWS and curr_type == grid[row+3][col].type:
-					stones_to_turn = [grid[row+2][col], grid[row+3][col]]
-					break
-				elif row + 2 < GRID_ROWS:
-					if col - 1 >= 0 and curr_type == grid[row+2][col-1].type:
-						stones_to_turn = [grid[row+2][col], grid[row+2][col-1]]
-						break
-					if col + 1 < GRID_COLS and curr_type == grid[row+2][col+1].type:
-						stones_to_turn = [grid[row+2][col], grid[row+2][col+1]]
-						break
-			elif row + 2 < GRID_ROWS and curr_type == grid[row+2][col].type:
-				if col - 1 >= 0 and curr_type == grid[row+1][col-1].type:
-					stones_to_turn = [grid[row+1][col], grid[row+1][col-1]]
-					break
-				if col + 1 < GRID_COLS and curr_type == grid[row+1][col+1].type:
-					stones_to_turn = [grid[row+1][col], grid[row+1][col+1]]
-					break
-			
-			if is_left_same:
-				if col - 3 >= 0 and curr_type == grid[row][col-3].type:
-					stones_to_turn = [grid[row][col-2], grid[row][col-3]]
-					break
-				elif col - 2 >= 0:
-					if row - 1 >= 0 and curr_type == grid[row-1][col-2].type:
-						stones_to_turn = [grid[row][col-2], grid[row-1][col-2]]
-						break
-					if row + 1 < GRID_ROWS and curr_type == grid[row+1][col-2].type:
-						stones_to_turn = [grid[row][col-2], grid[row+1][col-2]]
-						break
-			elif col - 2 >= 0 and curr_type == grid[row][col-2].type:
-				if row - 1 >= 0 and curr_type == grid[row-1][col-1].type:
-					stones_to_turn = [grid[row][col-1], grid[row-1][col-1]]
-					break
-				if row + 1 < GRID_ROWS and curr_type == grid[row+1][col-1].type:
-					stones_to_turn = [grid[row][col-1], grid[row+1][col-1]]
-					break
-			
-			if is_right_same:
-				if col + 3 < GRID_COLS and curr_type == grid[row][col+3].type:
-					stones_to_turn = [grid[row][col+2], grid[row][col+3]]
-					break
-				elif col + 2 < GRID_COLS:
-					if row - 1 >= 0 and curr_type == grid[row-1][col+2].type:
-						stones_to_turn = [grid[row][col+2], grid[row-1][col+2]]
-						break
-					if row + 1 < GRID_ROWS and curr_type == grid[row+1][col+2].type:
-						stones_to_turn = [grid[row][col+2], grid[row+1][col+2]]
-						break
-			elif col + 2 < GRID_COLS and curr_type == grid[row][col+2].type:
-				if row - 1 >= 0 and curr_type == grid[row-1][col+1].type:
-					stones_to_turn = [grid[row][col+1], grid[row-1][col+1]]
-					break
-				if row + 1 < GRID_ROWS and curr_type == grid[row+1][col+1].type:
-					stones_to_turn = [grid[row][col+1], grid[row+1][col+1]]
-					break
-						
-	if stones_to_turn.is_empty():
-		print("No turns on a grid") #TO DO: HANDLE NO TURNS ON GRID
-	else:
-		last_swapped = [stones_to_turn[0], stones_to_turn[1]]
-		swap_stones(stones_to_turn[0], stones_to_turn[1])
-		has_player_made_turn = true
+			if col + 3 < GRID_COLS:
+				if curr_type == grid[row][col+1].type:
+					if curr_type == grid[row][col + 3].type: return true
+			if col - 3 >= 0:
+				if curr_type == grid[row][col-1].type:
+					if curr_type == grid[row][col - 3].type: return true
+			if row + 3 < GRID_ROWS:
+				if curr_type == grid[row+1][col].type:
+					if curr_type == grid[row+3][col].type: return true
+			if row - 3 >= 0:
+				if curr_type == grid[row-1][col].type:
+					if curr_type == grid[row-3][col].type: return true
+	return false
 	
 func is_grid_idle():
 	for row in GRID_ROWS:
@@ -253,11 +181,12 @@ func check_matches():
 	
 func get_new_bonus(is_horizontal, is_vertical, matched):
 	var new_bonus = BONUS_TYPES.NONE
-	var adding_bonus = true
-	for m in matched: 
-		if matched[m] != BONUS_TYPES.NONE:
-			adding_bonus = false
-			break
+	var adding_bonus = has_player_made_turn
+	if adding_bonus: 
+		for m in matched: 
+			if matched[m] != BONUS_TYPES.NONE:
+				adding_bonus = false
+				break
 	if adding_bonus:
 		if is_horizontal:
 			new_bonus = BONUS_TYPES.HORIZONTAL
@@ -283,7 +212,6 @@ func process_matched(matched: Dictionary, new_bonus: BONUS_TYPES):
 		if last_swapped.has(cell) and new_bonus != BONUS_TYPES.NONE:
 			cell.bonus_type = new_bonus
 		else: cell.type = ""
-	got_matches.emit(match_count)
 	
 func apply_bonus(cell: Dictionary, matched: Dictionary):
 	if cell.bonus_type == BONUS_TYPES.NONE: return
@@ -354,7 +282,7 @@ func apply_gravity():
 				cell.is_moving = false
 	for col in range(GRID_COLS):
 		if grid[0][col].type == "":
-			var new_type = STONE_TYPES[randi() % STONE_TYPES.size()]
+			var new_type = STONE_TYPES[randi_range(2, 7)]
 			grid[0][col].type = new_type
 			grid[0][col].bonus_type = BONUS_TYPES.NONE
 			grid[0][col].sprite_pos.y -= CELL_SIZE
@@ -394,9 +322,7 @@ func _input(event):
 			if hovered_vec != new_hovered:
 				hovered_vec = new_hovered
 				queue_redraw()
-	
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		if current_player == null or !current_player is Player: return
 		var mouse_pos = get_local_mouse_position()
 		var col = int(mouse_pos.x / CELL_SIZE)
 		var row = int(mouse_pos.y / CELL_SIZE)

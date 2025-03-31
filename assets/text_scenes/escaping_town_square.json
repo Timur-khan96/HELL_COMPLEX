@@ -1,0 +1,39 @@
+{
+	"conditions": {"is_family_guy": false},
+	"scenes": {
+		"0": {
+			"text": {
+				"ru": "Вы двигаетесь по просторной улице, прохожие, кажется, не обращают на вас внимания. За движением наблюдает стоящий на середине дороги страж.",
+				"en": "You are moving along a wide street, passers-by seem not to pay attention to you. The movement is observed by a guard standing in the middle of the road."
+			}
+		},
+		"1": {
+			"image": "intro",
+			"text": {
+				"ru": "Начнем с начала, с давно забытой страны, существенная часть которой уходила вглубь континента на расстояние, которое до сих пор не исследовал ни один путешественник. Эта страна была разделена на множество провинций, и ты родился и провел свою юность в одной из таких, расположенной в очаровательной плодотворной долине.",
+				"en": "Let us begin at the beginning, with a long-forgotten country, a considerable part of which extended into the interior of the continent to a distance unexplored by any traveler. This country was divided into many provinces, and you were born and spent your youth in one of these, situated in a charming and fruitful valley."
+			}
+		},
+		"2": {
+			"text": {"ru": "Рос же ты ребенком...", "en": "You grew up as..."},
+			"choices": [
+				{
+					"text": { "ru": "милым.", "en": "sweet."},
+					"effects": {"change_skill": {"charisma": 1}}
+				},
+				{
+					"text": { "ru": "восприимчивым.", "en": "receptive."},
+					"effects": {"change_skill": {"perception": 1}}
+				},
+				{
+					"text": { "ru": "удачливым.", "en": "lucky."},
+					"effects": {"change_skill": {"luck": 1}}
+				},
+				{
+					"text": { "ru": "расторопным.", "en": "spry."},
+					"effects": {"change_skill": {"speed": 1}}
+				}
+			]
+		}
+	}
+}

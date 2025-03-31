@@ -1,0 +1,33 @@
+{
+	"results": {"submitted": false},
+	"char_name": {"ru":"Страж", "en": "Guard"},
+	"events": {
+		"0": {
+			"text": {
+				"ru": "Правильно, раб, оставайся на коленях и покорись, и тебя пощадят.",
+				"en": "That's right, slave, stay down and submit, and you'll be spared."
+			},
+			"choices": [
+				{
+					"text": {
+						"ru": "[Покориться]",
+						"en": "[Submit]"
+					},
+					"effects": {"change_result": {"submitted": true}, "finish_dialogue": true}
+				},
+				{
+					"text": {
+						"ru": "[Не покориться]",
+						"en": "[Don't submit]"
+					},
+				}
+			]
+		},
+		"1": {
+			"text": {
+				"ru": "Видят святые мэтры, не хотел я товар терять, видимо, придется. [произнеся это, он наносит последний удар]",
+				"en": "Saint maitres know, I didn't want to lose an article, but I guess I have to. [with these words he takes your life]."
+			}
+		}
+	}
+}

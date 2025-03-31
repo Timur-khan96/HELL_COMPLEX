@@ -40,3 +40,7 @@ WHAT,What?,Что?
 OLD_ELF_FIGHT_REACT,Guards!,Стража!
 ELF_GIRL_FIGHT_REACT,"No, thank you.","Спасибо, не надо."
 ENEMY_THROWS,Enemy throws,Противник бросает
+LOCKSMITH_HIT_REACTION,"Chill, buddy, that's not a cool thing to do.","Полегче, приятель, так не круто поступать."
+LOCKSMITH_HELLO,"Hello, my good friend!","Привет, добрый друг!"
+LOCKSMITH_CONFUSED,What is happening here?,Что тут происходит?
+OLD_ELF_THANKFUL,"Thank you, sport!","Спасибо, приятель"

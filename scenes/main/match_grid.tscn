@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4h8kn0tu030c"]
+
+[ext_resource type="Script" uid="uid://6yexjie7xqbu" path="res://scripts/battle/battle_grid.gd" id="1_te3go"]
+
+[node name="grid" type="Control"]
+custom_minimum_size = Vector2(720, 720)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+script = ExtResource("1_te3go")
+metadata/_edit_use_anchors_ = true

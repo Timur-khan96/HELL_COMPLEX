@@ -9,7 +9,7 @@ signal dialogue_finished
 var auto_roll: bool = false #for dice auto_rolling
 
 enum GameStates {TEXT, ADVENTURE, BATTLE}
-enum CharStates { IDLE, MOVING, DEAD, DIALOGUE, BATTLE } #busy fighting or in dialogue
+enum CharStates { IDLE, MOVING, DEAD, DIALOGUE, BATTLE }
 enum BattleStat {DAMAGE, ARMOR, MANA, ATTACK_COOLDOWN, CRIT_CHANCE, CRIT_MULTI }
 
 var game_state: GameStates = GameStates.TEXT
@@ -25,17 +25,23 @@ var player_stats: CharStats:
 var player_damage: 
 	get(): return player_stats.get_default_damage()
 
+#called from a visual scene (or from main if currently text scene)
 func init_battle(player_ref, enemy_ref):
 	player_ref.current_state = CharStates.BATTLE
 	enemy_ref.current_state = CharStates.BATTLE
 	game_state = GameStates.BATTLE
-	battle_started.emit(player_ref, enemy_ref)
+	battle_started.emit(player_ref, enemy_ref) #caught by battle_handler in main
 	
-func finish_battle(player_ref, enemy_ref):
-	player_ref.current_state = CharStates.IDLE
-	enemy_ref.current_state = CharStates.IDLE
-	game_state = GameStates.ADVENTURE #TO DO: CHANGE THAT FOR INIT FROM TEXTSCENE
-	battle_finished.emit(player_ref, enemy_ref)
+#called from a battle_main (battle scene)
+func finish_battle(player_ref, enemy_ref, has_player_won: bool):
+	if has_player_won: 
+		player_ref.current_state = CharStates.IDLE
+		enemy_ref.current_state = CharStates.DEAD
+	else:
+		player_ref.current_state = CharStates.DEAD
+		enemy_ref.current_state = CharStates.IDLE
+	game_state = GameStates.ADVENTURE
+	battle_finished.emit(player_ref, enemy_ref, has_player_won) #caught by battle_handler and visual scene
 	
 func init_dialogue(player_ref, speaker_ref, dialogue_name, forced: bool = false):
 	if player_ref.current_state == CharStates.DIALOGUE and !forced:

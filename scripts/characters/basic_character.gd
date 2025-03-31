@@ -6,10 +6,16 @@ signal target_reached
 signal screen_entered
 signal screen_exited
 
-@export var obj_name: String = "NONAME"
-@export var attack_reaction: String 
-@export var movement_speed: float = 4.0
-@export var texture: Texture2D: set = set_character_texture
+@export var character_data: CharacterData
+
+var obj_name: String: 
+	get: return character_data.obj_name
+var attack_reaction: String:
+	get: return character_data.attack_reaction
+var movement_speed: float:
+	get: return character_data.movement_speed
+var texture: Texture2D:
+	get = get_character_texture
 
 		
 var current_state: 
@@ -24,11 +30,13 @@ var current_state:
 @onready var interact_area = $interact_area
 @onready var visible_on_screen_notifier_3d = $VisibleOnScreenNotifier3D
 
+func get_character_texture(): return character_data.texture
 
 func set_character_texture(value):
 	texture = value
 	var sprite = get_node_or_null("Sprite3D")
 	if sprite: sprite.texture = value
+	else: print("Failed to set texture for " + character_data.obj_name)
 
 func _ready():
 	interact_area.body_entered.connect(_on_body_entered)
@@ -37,6 +45,7 @@ func _ready():
 		screen_entered.emit(self))
 	visible_on_screen_notifier_3d.screen_exited.connect(func():
 		screen_exited.emit(self))
+	set_character_texture(character_data.texture)
 
 func _physics_process(delta):
 	if state_machine.current_state == GameManager.CharStates.MOVING:
@@ -75,6 +84,7 @@ func has_anim(anim_name): return anim.has_animation(anim_name)
 func stop_anim(anim_name): 
 	if anim.current_animation == anim_name:
 		anim.stop()
+		play_anim("RESET") #should reset the billboard mode
 
 func _on_body_entered(body):
 	if body is Player:
